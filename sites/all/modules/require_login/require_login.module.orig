@@ -1,0 +1,15 @@
+<?php
+// $Id: require_login.module,v 1.1.2.1 2010/04/19 22:56:28 robphillips Exp $ 
+
+/**
+ * Implementation of hook_init().
+ */
+function require_login_init() {
+	global $user, $base_path;
+	if (!isset($_SESSION['openid']['service']['uri']) && !isset($_SESSION['openid']['claimed_id'])) {
+  	if (request_uri() != $base_path .'cron.php' && !$user->uid && !(arg(0) == 'user' && (!arg(1) || arg(1) == 'password' || arg(1) == 'register'))) {
+  		drupal_set_message(t('You must login to use this site.'));
+  		drupal_goto('user', 'destination='. rawurlencode($_GET['q']));
+  	}
+	}
+}

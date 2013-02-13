@@ -1,0 +1,11 @@
+; $Id: require_login.info,v 1.1 2010/04/12 20:39:02 robphillips Exp $ 
+
+name = Require Login
+description = "Requires anonymous users to login before using the site."
+core = 6.x
+; Information added by drupal.org packaging script on 2010-04-19
+version = "6.x-1.1"
+core = "6.x"
+project = "require_login"
+datestamp = "1271718016"
+
