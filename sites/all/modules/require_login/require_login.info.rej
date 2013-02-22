@@ -1,0 +1,10 @@
+***************
+*** 1,4 ****
+  
+  name = Require Login
+  description = "Requires anonymous users to login before using the site."
+- core = 6.x--- 1,4 ----
+  
+  name = Require Login
+  description = "Requires anonymous users to login before using the site."
++ core = 7.x
