@@ -5,4 +5,4 @@ all:
 test:
 	$(shell `which php` scripts/run-tests.sh)
 
-.PHONY: test
+.PHONY: all test
