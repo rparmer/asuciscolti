@@ -1,0 +1,7 @@
+; $Id$
+name = LTI Consumer
+description = LTI Consumer
+
+core = 7.x
+package = LTI Consumer
+configure = admin/config/lti/consumer

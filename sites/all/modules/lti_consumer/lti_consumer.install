@@ -1,0 +1,24 @@
+<?php
+
+function lti_consumer_install() {
+db_query("CREATE TABLE {lti_consumer} (
+    id int unsigned NOT NULL AUTO_INCREMENT,
+    lti_name varchar(128) NOT NULL default '',
+    lti_key varchar(128) NOT NULL default '',
+    lti_secret varchar(128) NOT NULL default '',
+    lti_config varchar(30) NOT NULL default '',
+    lti_match varchar(30) NOT NULL default '',
+    lti_domain varchar(255) NOT NULL default '',
+    lti_privacy varchar(30) NOT NULL default '',
+    lti_custom varchar(255) NOT NULL default '',
+    lti_description varchar(255) NOT NULL default '',
+
+    created int unsigned NOT NULL default 0,
+    updated int unsigned NOT NULL default 0,
+    PRIMARY KEY (id)
+  )/*!40100 DEFAULT CHARACTER SET utf8 */;");
+}
+
+function lti_consumer_uninstall(){
+db_query("DROP TABLE {lti_consumer}");
+}
