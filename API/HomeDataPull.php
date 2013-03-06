@@ -4,6 +4,7 @@
     $database="drup197";
     $server="localhost";
 	$link = mysqli_connect($server,$username,$password,$database);
+	//@mysql_select_db($database,$link) or die( "Unable to select database");
 
 	$query = "
 				SELECT * 
@@ -35,14 +36,15 @@
 	
 	function formatData($rowArray){
 		if($rowArray){
+	        //Update this to check for thumbnail from table when it gets added 20130304JHB
     		if($rowArray['filename'] != "") 
-				$table = '"<img width=\"200px\" height=\"200px\" src=\"http://68.104.131.136:8080/drupal/sites/'
+				$table = '"<a href=\"?q=preview\"><img width=\"200px\" height=\"200px\" src=\"http://68.104.131.136:8080/drupal/sites/'
                        . 'default/files/webform/Form_displaypics/' . $rowArray['filename'] . '\" alt=\"No Image\"><br/>';
 			else $table = '"<img width=\"200px\" height=\"200px\" src=\"http://68.104.131.136:8080/drupal/Uploaded'
                        . '/Images/thumbnail_default.png\" alt=\"No Image\"><br/>';
 	
-	        if($rowArray['name'] != "") $table .= '<a href=\"#\">' . $rowArray['name'] . '</a><br/>';
-	        else $table .= '<a href=\"#\">No Name</a><br/>';
+	        if($rowArray['name'] != "") $table .= $rowArray['name'] . '</a><br/>';
+	        else $table .= 'No Name</a><br/>';
             if($rowArray['description'] != "") $table .= $rowArray['description'] . '"';
 	        else $table .= 'No description"';
 		}else{
