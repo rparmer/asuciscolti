@@ -5,4 +5,7 @@ all:
 test:
 	$(shell `which php` scripts/run-tests.sh --all)
 
-.PHONY: all test
+clean:
+	$(shell `which php` scripts/run-tests.sh --clean)
+
+.PHONY: all test clean
