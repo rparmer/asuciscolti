@@ -13,15 +13,15 @@ function lti_consumer_menu () {
   $items = array();
 
   $items['admin/settings/lti/consumer'] = array(
-    'title' => 'LTI Consumer Settings',
+    'title' => 'LTI Consumer Admin Settings',
     'page callback' => 'lti_consumer_admin',
-    'access arguments' => array('TODO: Enter user permissions'),
+    'access arguments' => array('administer site configuration'),
   );
   $items['lti/%'] = array(
     'title' => 'LTI Consumer Settings',
     'page callback' => 'lti_consumer_page',
     'page arguments' => array(1),
-    'access arguments' => array('TODO: Enter user permissions'),
+    'access arguments' => array('access content'),
   );
 
   return $items;
@@ -33,18 +33,18 @@ function lti_consumer_admin () {
     $lti_id = arg(5);
   }
 
-  $form = drupal_get_form('lti_consumer_admin_form', array($lti_id));
+  $form = drupal_get_form('lti_consumer_admin_form', $lti_id);
 
-  $header = array('Id', 'Name', 'Path', 'Key', 'Created', 'Updated', 'Preview', 'Edit', 'Delete');
+  $header = array('Id', 'Name', 'Domain', 'Key', 'Created', 'Updated', 'Preview', 'Edit', 'Delete');
 
-  $res = db_query("SELECT * FROM {lti_consumer} ORDER BY id DESC");
+  $res = db_query("SELECT * FROM {lti_consumer} ORDER BY id ASC");
 
   $rows = array();
-  while ($r = $res) {
+  foreach ($res as $r) {
     $row = array();
     $row[] = $r->id;
     $row[] = $r->lti_name;
-    $row[] = $r->lti_path;
+    $row[] = $r->lti_domain;
     $row[] = $r->lti_key;
     $row[] = format_date($r->created, 'small');
     $row[] = format_date($r->updated, 'small');
@@ -55,16 +55,17 @@ function lti_consumer_admin () {
     $rows[] = $row;
   }
 
-  return $form . theme('table', $header, $rows);
+  //return drupal_get_form('lti_consumer_admin_form', $lti_id);
+  return $form . theme('table', array('header' => $header, 'rows' => $rows));
 }
 
-function lti_consumer_admin_form ($ignore, $lti_id) {
+function lti_consumer_admin_form ($form, &$form_state, $lti_id) {
   $lti = null;
   if (isset($lti_id) && (int)$lti_id > 0) {
-    $lti = db_query('SELECT * FROM {lti_consumer} WHERE id=:id', array(':id' => $lti_id));
+    $lti = db_query('SELECT * FROM {lti_consumer} WHERE id = :id', array(':id' => $lti_id))->fetchObject();
   }
 
-  $form = array();
+  //$form = array();
 
   $form['lti'] = array(
     '#type' => 'fieldset',
@@ -78,11 +79,11 @@ function lti_consumer_admin_form ($ignore, $lti_id) {
     '#default_value' => (isset($lti) ? $lti->lti_name : ''),
     '#required' => TRUE,
   );
-  $form['lti']['lti_path'] = array(
+  $form['lti']['lti_domain'] = array(
     '#type' => 'textfield',
-    '#title' => 'Consumer Path',
-    '#description' => 'The LTI tool path',
-    '#default_value' => (isset($lti) ? $lti->lti_path : 'http://www.imsglobal.org/developers/BLTI/tool.php'),
+    '#title' => 'Consumer Domain',
+    '#description' => 'The LTI tool domain',
+    '#default_value' => (isset($lti) ? $lti->lti_domain : 'http://www.imsglobal.org/developers/BLTI/tool.php'),
     '#required' => TRUE,
   );
   $form['lti']['lti_key'] = array(
@@ -105,27 +106,44 @@ function lti_consumer_admin_form ($ignore, $lti_id) {
     '#value' => (isset($lti) ? $lti->id : -1),
   );
 
-  $form['lti']['submit'] = array(
+  $form['submit'] = array(
     '#type' => 'submit',
     '#value' => 'Submit',
   );
 
   return $form;
+
 }
 
-function lti_consumer_admin_form_submit ($form_id, $form_state, $form_values) {
+function lti_consumer_admin_form_submit ($form_id, $form_state) {
   $values = $form_state['values'];
   $lti_id = $values['lti_id'];
 
   if ($lti_id > 0) {
     // Update an existing LTI consumer
-    db_query("UPDATE {lti_consumer} SET lti_name='%s', lti_path='%s', lti_key='%s', lti_secret='%s', updated=%d", 
-      $values['lti_name'], $values['lti_path'], $values['lti_key'], $values['lti_secret'], time());
+    db_update('lti_consumer')
+    ->fields(array(
+    	'lti_name' => $values['lti_name'],
+    	'lti_domain' => $values['lti_domain'],
+    	'lti_key' => $values['lti_key'],
+    	'lti_secret' => $values['lti_secret'],
+    	'updated' => REQUEST_TIME,
+    	))
+    ->condition('id', $lti_id, '=')
+    ->execute();
   }
   else {
     // Create a new LTI consumer
-    db_query("INSERT INTO {lti_consumer} (lti_name, lti_path, lti_key, lti_secret, created, updated) VALUES ('%s', '%s', '%s', '%s', %d, %d)",
-      $values['lti_name'], $values['lti_path'], $values['lti_key'], $values['lti_secret'], time(), time());
+    db_insert('lti_consumer')
+    ->fields(array(
+    	'lti_name' => $values['lti_name'],
+    	'lti_domain' => $values['lti_domain'],
+    	'lti_key' => $values['lti_key'],
+    	'lti_secret' => $values['lti_secret'],
+    	'created' => REQUEST_TIME,
+    	'updated' => REQUEST_TIME,
+    	))
+    ->execute();
   }
 }
 
@@ -135,7 +153,7 @@ function lti_consumer_page ($lti_id) {
 
   module_load_include('php', 'oauth_common', 'lib/OAuth');
 
-  $lti = db_query("SELECT * FROM {lti_consumer} WHERE id=%d", $lti_id);
+  $lti = db_query('SELECT * FROM {lti_consumer} WHERE id = :id', array(':id' => $lti_id))->fetchObject();
 
   $params = array(
       "resource_link_id" => $lti->id,
@@ -150,25 +168,38 @@ function lti_consumer_page ($lti_id) {
       "oauth_callback" => "about:blank",
       "lti_version" => "LTI-1p0",
       "lti_message_type" => "lti-launch-request",
-      "lti_submit" => "Launch Endpoint with lti Data",
+      "lti_submit" => "Launch Endpoint with LTI Data",
   );
     
   $hmac_method = new OAuthSignatureMethod_HMAC_SHA1();
   $consumer = new OAuthConsumer($lti->lti_key, $lti->lti_secret, NULL);
 
-  $req = OAuthRequest::from_consumer_and_token($consumer, '', 'POST', $lti->lti_path, $params);
+  $req = OAuthRequest::from_consumer_and_token($consumer, '', 'POST', $lti->lti_domain, $params);
   $req->sign_request($hmac_method, $consumer, '');
 
   // Pass this back up "out of band" for debugging
   //$last_base_string = $req->get_signature_base_string();
 
+  $url = $req->get_normalized_http_url();
   $new_params = $req->get_parameters();
 
-	$post = curl_init($lti->lti_path);
-	curl_setopt($post, CURLOPT_HEADER, 1);
+if (!empty($params)) {
+    $url .= '?' . http_build_query($params);
+   }
+   
+	$headers = array(
+    $req->to_header(),
+    );
+    $post = curl_init();
+    curl_setopt($post, CURLOPT_URL, $url);
+    
+    $oauth_version = _oauth_common_version();
+    curl_setopt($post, CURLOPT_USERAGENT, 'Drupal/' . VERSION . ' OAuth/' . $oauth_version);
+    curl_setopt($post, CURLOPT_HTTPHEADER, $headers);
+    curl_setopt($post, CURLOPT_HEADER, 1);
+    curl_setopt($post, CURLOPT_RETURNTRANSFER, 1);
 	curl_setopt($post, CURLOPT_POST, 1);
-	curl_setopt($post, CURLOPT_POSTFIELDS, $new_params);
-	curl_setopt($post, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($post, CURLOPT_POSTFIELDS, $new_params);
 
 	$response = curl_exec($post);
 	curl_close($post);
@@ -181,3 +212,5 @@ function lti_consumer_sign_parameters ($lti_path, $request_params) {
 function lti_consumer_get_ims_role ($user) {
   return "Learner";
 }
+
+  ?>
