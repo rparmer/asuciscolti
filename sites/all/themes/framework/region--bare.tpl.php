@@ -1,4 +1,4 @@
-<?php 
-if ($content) {
-  print $content;
-}
+<?php 
+if ($content) {
+  print $content;
+}

@@ -1,3 +1,3 @@
-
-This directory should be used to place downloaded translations
-for installing Drupal core.
+
+This directory should be used to place downloaded translations
+for installing Drupal core.

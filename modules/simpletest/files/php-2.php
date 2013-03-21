@@ -1,2 +1,2 @@
-<?php
-print 'SimpleTest PHP was executed!';
+<?php
+print 'SimpleTest PHP was executed!';

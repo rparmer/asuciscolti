@@ -1,4 +1,27 @@
-(function ($) {
+head	1.1;
+access;
+symbols;
+locks; strict;
+comment	@# @;
+
+
+1.1
+date	2013.03.21.03.19.44;	author alicht;	state Exp;
+branches;
+next	;
+
+
+desc
+@:q
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@(function ($) {
 
 Drupal.behaviors.menu_block = {
   attach: function (context, settings) {
@@ -34,3 +57,4 @@ Drupal.behaviors.menu_block = {
 };
 
 })(jQuery);
+@

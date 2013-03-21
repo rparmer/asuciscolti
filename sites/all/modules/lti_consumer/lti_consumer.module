@@ -54,7 +54,7 @@ function lti_consumer_admin () {
 
     $rows[] = $row;
   }
-  
+
   //return drupal_get_form('lti_consumer_admin_form', $lti_id);
   return $form . theme('table', array('header' => $header, 'rows' => $rows));
 }
@@ -152,7 +152,6 @@ function lti_consumer_page ($lti_id) {
   global $user;
 
   module_load_include('php', 'oauth_common', 'lib/OAuth');
-  module_load_include('lib.php', 'oauth');
 
   $lti = db_query('SELECT * FROM {lti_consumer} WHERE id = :id', array(':id' => $lti_id))->fetchObject();
 
@@ -171,10 +170,9 @@ function lti_consumer_page ($lti_id) {
       "lti_message_type" => "lti-launch-request",
       "lti_submit" => "Launch Endpoint with LTI Data",
   );
-   
-  $consumer = new OAuthConsumer($lti->lti_key, $lti->lti_secret, NULL); 
+    
   $hmac_method = new OAuthSignatureMethod_HMAC_SHA1();
-  
+  $consumer = new OAuthConsumer($lti->lti_key, $lti->lti_secret, NULL);
 
   $req = OAuthRequest::from_consumer_and_token($consumer, '', 'POST', $lti->lti_domain, $params);
   $req->sign_request($hmac_method, $consumer, '');
