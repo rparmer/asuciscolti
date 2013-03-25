@@ -6,7 +6,7 @@
 	
 ?>
 
-<div id="SuggestLTI">
+<div id="Custom_Form">
 
 	<table border=0>
 	

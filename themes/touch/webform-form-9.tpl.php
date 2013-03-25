@@ -38,7 +38,7 @@
 
  ?>
 
- <div id="AddLTI">
+ <div id="Custom_Form">
 
  	<table border=0>
 

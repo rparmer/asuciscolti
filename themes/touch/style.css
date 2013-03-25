@@ -2070,11 +2070,11 @@
 
  
 
- /*******************Add LTI Content Page************************/
+ /*******************Custom Form Content Page************************/
 
  
 
- #AddLTI table, td{
+ #Custom_Form table, td{
 
      border: 0px;
 
@@ -2092,7 +2092,7 @@
 
  
 
- #AddLTI table td{
+ #Custom_Form table td{
 
      vertical-align:top;
 
@@ -2106,7 +2106,9 @@
 
  }
 
-/*******************END Add LTI Content Page************************/ /************************Home Page**********************************/
+/*******************END Custom Form Content Page************************/ 
+
+/************************Home Page**********************************/
 
 #HomeLTI table, td, .dataTables_wrapper{
 
@@ -2154,7 +2156,13 @@
 
 
 }
-table.dataTable {	table-layout: fixed;}td{	width:inherit;}
+
+table.dataTable {
+	table-layout: fixed;
+}
+td{
+	width:inherit;
+}
 
 /************************END Home Page**********************************/
 
