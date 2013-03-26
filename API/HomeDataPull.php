@@ -4,13 +4,11 @@
 
  	$password="bandit20";
 
-     $database="drup197";
+        $database="drup197";
 
-     $server="localhost";
+        $server="localhost";
 
  	$link = mysqli_connect($server,$username,$password,$database);
-
- 	//@mysql_select_db($database,$link) or die( "Unable to select database");
 
  
 
@@ -21,6 +19,7 @@
  				FROM dr_webform_views_add_lti_content_9 wfc
 
  				LEFT JOIN dr_file_managed f on f.fid = wfc.display_image
+                                LEFT JOIN LTIComments c on c.LTIKey = wfc.sid
 
  			 "; 
 
@@ -39,7 +38,7 @@
      $rowNum = mysqli_num_rows($result);
 
  
-
+     //Set up to display rows of 4
      for($i=0; $i<$rowNum; $i+=4){
 
  		if($i>0) $tableData .= ',[';
@@ -90,7 +89,10 @@
 
  	        else $table .= 'No Name</a><br/>';
 
-             if($rowArray['description'] != "") $table .= $rowArray['description'] . '"';
+	        if($rowArray['rating'] != "") $table .= formatRating($rowArray['rating']) . '<br/>';
+	        else $table .= formatRating(0) . '<br/>';
+
+	        if($rowArray['description'] != "") $table .= $rowArray['description'] . '"';
 
  	        else $table .= 'No description"';
 
@@ -103,6 +105,18 @@
  		return $table;
 
  	}
+
+    	function formatRating($star){
+        	$return = '';
+        	for($i=1; $i<6; $i++){
+          	  if($i == $star)
+			$return .= '<input type=\"radio\" value=\"\" class=\"star\" disabled=\"disabled\" checked=\"checked\"/>';
+	  	  else
+			$return .= '<input type=\"radio\" value=\"\" class=\"star\" disabled=\"disabled\"/>';
+       	 	}
+		return $return;
+    	}
+
 
  
 
