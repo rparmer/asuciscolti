@@ -282,8 +282,8 @@ function simpletest_script_init($server_software) {
   }
 
   $_SERVER['HTTP_HOST'] = $host;
-  $_SERVER['REMOTE_ADDR'] = 'http://68.2.131.105:8080';
-  $_SERVER['SERVER_ADDR'] = 'http://68.2.131.105:8080';
+  $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+  $_SERVER['SERVER_ADDR'] = '127.0.0.1';
   $_SERVER['SERVER_SOFTWARE'] = $server_software;
   $_SERVER['SERVER_NAME'] = 'localhost';
   $_SERVER['REQUEST_URI'] = $path .'/';
