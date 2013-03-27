@@ -34,6 +34,10 @@
 
    unset($form['submitted']['description']['#title']);
 
+   unset($form['submitted']['app_indicator']['#title']);
+
+   unset($form['submitted']['display_image']['#title']);
+
  
 
  ?>
@@ -96,7 +100,15 @@
 
  		    <td><?php print drupal_render($form['submitted']['privacy']); ?></td>
 
- 		</tr><td>
+ 		</tr>
+
+		<tr>
+
+ 		    <td><b>App Indicator</b><br/>Indicate whether the application is free or Premium</td>
+
+ 		    <td><?php print drupal_render($form['submitted']['app_indicator']); ?></td>
+
+ 		</tr>
 
  		<tr>
 
@@ -113,6 +125,15 @@
  		    <td><?php print drupal_render($form['submitted']['description']); ?></td>
 
  		</tr>
+
+		<tr>
+
+ 		    <td><b>Display Image</b><br/>Upload a display picture</td>
+
+ 		    <td><?php print drupal_render($form['submitted']['display_image']); ?></td>
+
+ 		</tr>
+
 
  	</table>
 
