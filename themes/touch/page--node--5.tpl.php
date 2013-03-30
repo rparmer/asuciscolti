@@ -1,6 +1,7 @@
-<script type="text/javascript" charset="utf-8" src="http://68.2.131.105:8080/drupal/API/jquery.dataTables.js"></script>
-<script type="text/javascript" charset="utf-8" src="http://68.2.131.105:8080/drupal/API/jquery.dataTables-1.9.4.min.js" ></script>
-<script type="text/javascript" charset="utf-8" src="http://68.2.131.105:8080/drupal/themes/touch/js/HomeDataFormat.js" ></script>
+<script type="text/javascript" charset="utf-8" src="/drupal/API/jquery.dataTables.js"></script>
+<script type="text/javascript" charset="utf-8" src="/drupal/API/jquery.dataTables-1.9.4.min.js" ></script>
+<script type="text/javascript" charset="utf-8" src="/drupal/themes/touch/js/DatabaseDataFormat.js" ></script>
+<script type="text/javascript" charset="utf-8" src="/drupal/API/jquery.rating.js" ></script>
 
 <?php
 ?>
@@ -51,10 +52,15 @@
           <?php print $messages; ?>
           <?php print render($page['help']); ?>
           <?php if ($action_links): ?><ul class="action-links"><?php print render($action_links); ?></ul><?php endif; ?>
+	    
 
           <div class="clearfix">
 	  <div id="block-system-main">
-	    <div id="HomeLTI"></div>
+	    <h4> Main LTI Database </h4>
+	    <div id="DatabaseLTI"></div>
+	    <br>
+	    <h4>Submitted Suggestions for LTIs</h4>
+	    [List suggestions here]
 	  </div>
           </div>
           <?php print $feed_icons ?>

@@ -7,7 +7,7 @@
                         "bScrollInfinite": true,
                         "sScrollY": "1000px",
                         "sDom": '<"top">rt<"bottom">',
-                        "sAjaxSource": "http://68.2.131.105:8080/drupal/API/HomeDataPull.php",
+                        "sAjaxSource": "/drupal/API/HomeDataPull.php",
                         "aoColumns": [
 				{ "sWidth": "25%" },
 				{ "sWidth": "25%" },
@@ -15,6 +15,7 @@
 				{ "sWidth": "25%" }
                          ]
                 });
+
             }
         }
     })(jQuery);

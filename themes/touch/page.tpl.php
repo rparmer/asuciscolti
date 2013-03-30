@@ -1,6 +1,7 @@
-<script type="text/javascript" charset="utf-8" src="http://68.2.131.105:8080/drupal/API/jquery.dataTables.js"></script>
-<script type="text/javascript" charset="utf-8" src="http://68.2.131.105:8080/drupal/API/jquery.dataTables-1.9.4.min.js" ></script>
-<script type="text/javascript" charset="utf-8" src="http://68.2.131.105:8080/drupal/themes/touch/js/HomeDataFormat.js" ></script>
+<script type="text/javascript" charset="utf-8" src="/drupal/API/jquery.dataTables.js"></script>
+<script type="text/javascript" charset="utf-8" src="/drupal/API/jquery.dataTables-1.9.4.min.js" ></script>
+<script type="text/javascript" charset="utf-8" src="/drupal/themes/touch/js/HomeDataFormat.js" ></script>
+<script type="text/javascript" charset="utf-8" src="/drupal/API/jquery.rating.js" ></script>
 
 <?php
 ?>
