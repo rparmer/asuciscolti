@@ -149,42 +149,93 @@ function lti_consumer_admin_form_submit ($form_id, $form_state) {
 
 
 function lti_consumer_page ($lti_id) {
-  	global $user;
+  global $user;
 
- 	 module_load_include('php', 'oauth_common', 'lib/OAuth');
-  
-  	//	query Database for selected LTI info
-	$lti = db_query('SELECT * FROM {lti_consumer} WHERE id = :id', array(':id' => $lti_id))->fetchObject();
-  
-  	//	parameters for LTI Consumer
-  	$params = array(
+  module_load_include('php', 'oauth_common', 'lib/OAuth');
+  module_load_include('lib.php', 'oauth');
+
+  $lti = db_query('SELECT * FROM {lti_consumer} WHERE id = :id', array(':id' => $lti_id))->fetchObject();
+
+  $params = array(
       "resource_link_id" => $lti->id,
+      //"user_id" => $user->uid,
+      //"roles" => lti_consumer_get_ims_role($user),
+      //"lis_person_name_full" => $user->name,
+      //"lis_person_contact_email_primary" => $user->mail,
+      //"lis_person_sourcedid" => $user->uid,
+      //"context_id" => $_GET['q'],
+      //"context_title" => $lti->lti_name,
+      //"context_label" => $lti->lti_name,
+      //"oauth_callback" => "about:blank",
       "lti_version" => "LTI-1p0",
-      "lti_message_type" => "basic-lti-launch-request");
+      "lti_message_type" => "basic-lti-launch-request",
+      //"lti_submit" => "Launch Endpoint with LTI Data",
+  );
+ 
+  $consumer = new OAuthConsumer($lti->lti_key, $lti->lti_secret, $params);
+  echo "$consumer";
+  
+  //$token = new OAuthToken($lti->lti_key, $lti->lti_secret);
+  //echo "$token";
+  
+  $hmac_method = new OAuthSignatureMethod_HMAC_SHA1();
+  //echo "$hmac_method";
 
-	//	set OAuth requirements to LTI info
-	$domain = $lti->lti_domain;
-	$consumer_key = $lti->lti_key;
-	$consumer_secret = $lti->lti_secret;
+
+  $req = OAuthRequest::from_consumer_and_token($consumer, '', 'POST', $lti->lti_domain, $params);
+  echo "$req";
+  
+  $req->sign_request($hmac_method, $consumer, '');
+  
+
+  // Pass this back up "out of band" for debugging
+  //$last_base_string = $req->get_signature_base_string();
+
+  $url = $req->get_normalized_http_url();
+  $new_params = $req->get_parameters();
+	//$new_params = $params;
 	
-	//	create OAuthConsumer
-	$consumer = new OAuthConsumer($consumer_key, $consumer_secret);
+if (!empty($params)) {
+    $url .= '?' . http_build_query($params,'','&');
+   }
+   echo "$url";
+  
+	$headers = array(
+    $req->to_header(),
+    );
+
+	//echo "$headers";
 	
-	//	create OAuthToken
-	$token = new OAuthToken($consumer_key, $consumer_secret);
-	
-	//	create Signature Method
-	$signature = new OAuthSignatureMethod_HMAC_SHA1();
-	
-	//	create Oauth
-	$oauth = OAuthRequest::from_consumer_and_token($consumer, $token, 'POST', $domain, NULL);
-	
-	//	request Signature for OAuth
-	$oauth->sign_request($signature, $consumer, $token);
-	
-	
-	$post = curl_init($oauth);
+    $post = curl_init($lti->lti_domain);
+    //curl_setopt($post, CURLOPT_URL, $url);
+   
+    $oauth_version = _oauth_common_version();
+    curl_setopt($post, CURLOPT_USERAGENT, 'Drupal/' . VERSION . ' OAuth/' . $oauth_version);
+    curl_setopt($post, CURLOPT_HTTPHEADER, $headers);
+    curl_setopt($post, CURLOPT_HEADER, true);
+    curl_setopt($post, CURLOPT_POST, true);
+    curl_setopt($post, CURLOPT_POSTFIELDS, $new_params);
+    curl_setopt($post, CURLOPT_RETURNTRANSFER, true);
+
 	$response=curl_exec($post);
 	curl_close($post);
-	return $response;
+	//echo "$post";
+  return $response;
+  
+/*  
+  $consumer_key = $lti->lti_key;
+  $consumer_secret = $lti->lti_secret;
+  
+  $oauth = new OAuth($consumer_key, $consumer_secret, OAUTH_SIG_METHOD_HMACSHA1, OAUTH_AUTH_TYPE_URI);
+  $oauth->enableDebug();
+*/
 }
+
+function lti_consumer_sign_parameters ($lti_path, $request_params) {
+}
+
+function lti_consumer_get_ims_role ($user) {
+  return "Learner";
+}
+
+  ?>
