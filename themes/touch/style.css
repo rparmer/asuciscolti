@@ -576,6 +576,8 @@
 
  color: #cacaca;
 
+ background: #3e3e3e;
+
  }
 
  
@@ -607,6 +609,8 @@
  float: left;
 
  vertical-align: middle;
+ 
+ background: #3e3e3e;
 
  list-style-image: none !important;
 
@@ -1268,13 +1272,13 @@
 
  margin-top: 10px;
 
- font-size: 10px;
+ font-size: 11px;
 
  }
 
  .links li a{
 
- background: #d3d1d1;
+ background: #3e3e3e;
 
  padding: 4px 5px;
 
@@ -1282,9 +1286,7 @@
 
  color: #383838;
 
- text-shadow: 1px 1px #fff;
-
- font-weight: normal;
+ font-weight: bold;
 
  }
 
