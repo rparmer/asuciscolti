@@ -76,28 +76,28 @@ function lti_consumer_admin_form ($form, &$form_state, $lti_id) {
     '#type' => 'textfield',
     '#title' => 'Consumer Name',
     '#description' => 'A unqiue name for this LTI consumer',
-    '#default_value' => (isset($lti) ? $lti->lti_name : ''),
+    '#default_value' => (isset($lti) ? $lti->lti_name : 'IMS Test Content'),
     '#required' => TRUE,
   );
   $form['lti']['lti_domain'] = array(
     '#type' => 'textarea',
     '#title' => 'Consumer Domain',
     '#description' => 'The LTI tool domain',
-    '#default_value' => (isset($lti) ? $lti->lti_domain : 'http://www.imsglobal.org/developers/BLTI/tool.php'),
+    '#default_value' => (isset($lti) ? $lti->lti_domain : 'http://www.imsglobal.org/developers/LTI/test/v1p1/tool.php'),
     '#required' => TRUE,
   );
   $form['lti']['lti_key'] = array(
     '#type' => 'textfield',
     '#title' => 'Consumer Key',
     '#description' => 'The LTI consumer key',
-    '#default_value' => (isset($lti) ? $lti->lti_key : 'lmsng.school.edu'),
+    '#default_value' => (isset($lti) ? $lti->lti_key : '12345'),
     '#required' => TRUE,
   );
   $form['lti']['lti_secret'] = array(
     '#type' => 'textfield',
     '#title' => 'Consumer Secret',
     '#description' => 'The LTI consumer secret',
-    '#default_value' => (isset($lti) ? $lti->lti_secret : '12345'),
+    '#default_value' => (isset($lti) ? $lti->lti_secret : 'secret'),
     '#required' => TRUE,
   );
 
