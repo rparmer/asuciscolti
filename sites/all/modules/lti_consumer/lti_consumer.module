@@ -147,7 +147,6 @@ function lti_consumer_admin_form_submit ($form_id, $form_state) {
   }
 }
 
-
 function lti_consumer_page ($lti_id) {
   	global $user;
 
@@ -159,9 +158,19 @@ function lti_consumer_page ($lti_id) {
   	//	parameters for LTI Consumer
   	$params = array(
       "resource_link_id" => $lti->id,
+      "roles" => "Instructor",
+      "user_id" => $user->uid,
+      "lis_person_name_full" => $user->name,
+      "lis_person_contact_email_primary" => $user->mail,
+      "lis_person_sourcedid" => $user->uid,
+      "context_id" => $_GET['q'],
+      "context_title" => $lti->lti_name,
+      "context_label" => $lti->lti_name,
+      "oauth_callback" => "about:blank",
       "lti_version" => "LTI-1p0",
-      "lti_message_type" => "basic-lti-launch-request");
-
+      "lti_message_type" => "basic-lti-launch-request",
+      "lti_submit" => "Launch Endpoint with LTI Data");
+      
 	//	set OAuth requirements to LTI info
 	$domain = $lti->lti_domain;
 	$consumer_key = $lti->lti_key;
@@ -170,21 +179,26 @@ function lti_consumer_page ($lti_id) {
 	//	create OAuthConsumer
 	$consumer = new OAuthConsumer($consumer_key, $consumer_secret);
 	
-	//	create OAuthToken
-	$token = new OAuthToken($consumer_key, $consumer_secret);
-	
 	//	create Signature Method
 	$signature = new OAuthSignatureMethod_HMAC_SHA1();
 	
 	//	create Oauth
-	$oauth = OAuthRequest::from_consumer_and_token($consumer, $token, 'POST', $domain, NULL);
+	$oauth = OAuthRequest::from_consumer_and_token($consumer, '', 'POST', $domain, $params);
 	
 	//	request Signature for OAuth
-	$oauth->sign_request($signature, $consumer, $token);
+	$oauth->sign_request($signature, $consumer, '');
 	
-	
+	//	call OAuth and display on webpage
 	$post = curl_init($oauth);
-	$response=curl_exec($post);
+	
+	//	remove comment below to check LTI Header
+	//curl_setopt($post, CURLOPT_HEADER, 1);
+	
+	curl_setopt($post, CURLOPT_POST, 1);
+	curl_setopt($post, CURLOPT_POSTFIELDS, $params);
+	curl_setopt($post, CURLOPT_RETURNTRANSFER, 1);
+
+	$response = curl_exec($post);
 	curl_close($post);
-	return $response;
+  return $response;
 }
