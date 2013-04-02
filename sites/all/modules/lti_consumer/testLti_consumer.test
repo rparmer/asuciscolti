@@ -1,0 +1,61 @@
+<?php
+class testLti_consumer extends DrupalWebTestCase {
+
+	public static function getInfo() {
+		// Note: getInfo() strings should not be translated.
+		return array(
+		'name' => 'LTI Consumer unit tests',
+		'description' => 'Test that lti_consumer works 			properly.',
+		'group' => 'LTI Consumer',
+		);
+	}
+
+
+	public static function testLtiConsumerMenu() {
+		$result = lti_consumer_menu();
+		$items = array();
+		$items['admin/settings/lti/consumer'] = array(
+			'title' => 'LTI Consumer Admin Settings',
+			'page callback' => 'lti_consumer_admin',
+			'access arguments' => array('administer site configuration'),
+		);
+
+		$items['lti/%'] = array(
+			'title' => 'LTI Consumer Settings',
+			'page callback' => 'lti_consumer_page',
+			'page arguments' => array(1),
+			'access arguments' => array('access content'),
+		);
+		$this->assertEqual($result, $items, $message);
+	}
+
+	public static function testLtiConsumerAdmin() {
+		$lti_id = 0;
+		if (arg(5)) {
+			$lti_id = arg(5);
+		}
+
+		$header = array('Id', 'Name', 'Domain', 'Key', 'Created', 'Updated', 'Preview', 'Edit', 'Delete');
+
+		$res = db_query("SELECT * FROM {lti_consumer} ORDER BY id ASC");
+
+		$rows = array();
+		foreach ($res as $r) {
+			$row = array();
+			$row[] = $r->id;
+			$row[] = $r->lti_name;
+			$row[] = $r->lti_domain;
+			$row[] = $r->lti_key;
+			$row[] = format_date($r->created, 'small');
+			$row[] = format_date($r->updated, 'small');
+			$row[] = l('Preview', 'lti/' . $r->id);
+			$row[] = l('Edit', 'admin/settings/lti/consumer/edit/' . $r->id);
+			$row[] = l('Delete', 'admin/settings/lti/consumer/delete/' . $r->id);
+
+			$rows[] = $row;
+		}
+		$returnValue = theme('table', array('header' => $header, 'rows' => $rows));
+		$this->assertEqual($result, $returnValue, $message);
+	}
+}
+?>
