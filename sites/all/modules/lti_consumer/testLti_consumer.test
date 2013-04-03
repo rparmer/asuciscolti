@@ -5,7 +5,7 @@ class testLti_consumer extends DrupalWebTestCase {
 		// Note: getInfo() strings should not be translated.
 		return array(
 		'name' => 'LTI Consumer unit tests',
-		'description' => 'Test that lti_consumer works 			properly.',
+		'description' => 'Test that lti_consumer works properly.',
 		'group' => 'LTI Consumer',
 		);
 	}
@@ -13,6 +13,7 @@ class testLti_consumer extends DrupalWebTestCase {
 
 	public static function testLtiConsumerMenu() {
 		$result = lti_consumer_menu();
+		$messsage = 'Result and function should return the same value';
 		$items = array();
 		$items['admin/settings/lti/consumer'] = array(
 			'title' => 'LTI Consumer Admin Settings',
@@ -30,10 +31,13 @@ class testLti_consumer extends DrupalWebTestCase {
 	}
 
 	public static function testLtiConsumerAdmin() {
+		$result = lti_consumer_admin();
+		$message = 'Result and function should return the same value';
 		$lti_id = 0;
 		if (arg(5)) {
 			$lti_id = arg(5);
 		}
+		$form = drupal_get_form('lti_consumer_admin_form', $lti_id);
 
 		$header = array('Id', 'Name', 'Domain', 'Key', 'Created', 'Updated', 'Preview', 'Edit', 'Delete');
 
@@ -57,5 +61,68 @@ class testLti_consumer extends DrupalWebTestCase {
 		$returnValue = theme('table', array('header' => $header, 'rows' => $rows));
 		$this->assertEqual($result, $returnValue, $message);
 	}
+
+	public static function testLtiConsumerGetImsRole {
+		$result = lti_consumer_get_ims_role("A");
+		$message = 'Function should return the string Learner';
+		$this->assertEqual($result, "Learner", $message);
+	}
+		
+	public static function testLtiConsumerPage() {
+		$result = lti_consumer_page(0);
+		$message = 'Function with parameter 0 should return the same value as with references to $lti_id replaced by the number 0';
+		global $user;
+		module_load_include('php', 'oauth_common', 'lib/OAuth');
+
+		$lti = db_query('SELECT * FROM {lti_consumer} WHERE id = :id', array(':id' => 0))->fetchObject();
+
+		$params = array(
+			"resource_link_id" => $lti->id,
+			"user_id" => $user->uid,
+			"roles" => lti_consumer_get_ims_role($user),
+			"lis_person_name_full" => $user->name,
+			"lis_person_contact_email_primary" => $user->mail,
+			"lis_person_sourcedid" => $user->uid,
+			"context_id" => $_GET['q'],
+			"context_title" => $lti->lti_name,
+			"context_label" => $lti->lti_name,
+			"oauth_callback" => "about:blank",
+			"lti_version" => "LTI-1p0",
+			"lti_message_type" => "lti-launch-request",
+			"lti_submit" => "Launch Endpoint with LTI Data",
+		);
+    
+		$hmac_method = new OAuthSignatureMethod_HMAC_SHA1();
+		$consumer = new OAuthConsumer($lti->lti_key, $lti->lti_secret, NULL);
+
+		$req = OAuthRequest::from_consumer_and_token($consumer, '', 'POST', $lti->lti_domain, $params);
+		$req->sign_request($hmac_method, $consumer, '');
+
+		$url = $req->get_normalized_http_url();
+		$new_params = $req->get_parameters();
+
+		if (!empty($params)) {
+			$url .= '?' . http_build_query($params);
+		}
+   
+		$headers = array(
+			$req->to_header(),
+		);
+		$post = curl_init();
+		curl_setopt($post, CURLOPT_URL, $url);
+    
+		$oauth_version = _oauth_common_version();
+		curl_setopt($post, CURLOPT_USERAGENT, 'Drupal/' . VERSION . ' OAuth/' . $oauth_version);
+		curl_setopt($post, CURLOPT_HTTPHEADER, $headers);
+		curl_setopt($post, CURLOPT_HEADER, 1);
+		curl_setopt($post, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($post, CURLOPT_POST, 1);
+		curl_setopt($post, CURLOPT_POSTFIELDS, $new_params);
+
+		$response = curl_exec($post);
+		curl_close($post);
+		$this->assertEqual($result, $response, $message);
+		
+	}	
 }
 ?>
