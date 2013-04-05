@@ -543,7 +543,7 @@
  }
 
  
-
+/**********************************Updated menu 20130328JHB****/
  #main-menu{
 
  width: 980px;
@@ -576,8 +576,6 @@
 
  color: #cacaca;
 
- background: #3e3e3e;
-
  }
 
  
@@ -609,10 +607,9 @@
  float: left;
 
  vertical-align: middle;
- 
- background: #3e3e3e;
 
  list-style-image: none !important;
+ //background: #3e3e3e;
 
  }
 
@@ -1278,7 +1275,7 @@
 
  .links li a{
 
- background: #3e3e3e;
+ //background: #3e3e3e;
 
  padding: 4px 5px;
 
@@ -1437,7 +1434,7 @@
    margin: 0;
 
    padding: 0;
-
+  //background: #3e3e3e;
  }
 
  
@@ -2167,20 +2164,10 @@ td{
 }
 
 /************************END Home Page**********************************/
-/************************Main-Content***********************************/
-#block-system-main{
-	padding:15px 15px;
-	width:100%;
-	height:1100px;
-	background-color:#DBDBDB;
-}
-/************************END Main-content*******************************/
 
 /* jQuery.Rating Plugin CSS - http://www.fyneworks.com/jquery/star-rating/ */
 /**Updated to work with drupal 20130328JHB **/
-#ratingBlock{
-	border: 0px;
-}
+
 .rating-cancel,.star-rating{
     float:left;width:17px;height:15px;text-indent:-999em;cursor:pointer;display:block;background:transparent;overflow:hidden}
 .rating-cancel,.rating-cancel a{background:url(/drupal/API/img/delete.gif) no-repeat 0 -16px}
@@ -2194,5 +2181,4 @@ td{
 .star-rating{background:transparent!important;overflow:hidden!important}
 /* END jQuery.Rating Plugin CSS */
 
- 
  
