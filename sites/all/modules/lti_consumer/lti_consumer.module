@@ -147,13 +147,16 @@ function lti_consumer_admin_form_submit ($form_id, $form_state) {
   }
 }
 
-function lti_consumer_page ($lti_id) {
+function lti_consumer_page ($lti_id, $database_table=NULL) {
   	global $user;
 
  	 module_load_include('php', 'oauth_common', 'lib/OAuth');
+ 	 
+ 	//	Allow user to call another LTI table or use consumer table
+ 	$database_table = ($database_table) ? $database_table : 'lti_consumer';
   
   	//	query Database for selected LTI info
-	$lti = db_query('SELECT * FROM {lti_consumer} WHERE id = :id', array(':id' => $lti_id))->fetchObject();
+	$lti = db_query('SELECT * FROM {' . $database_table . '} WHERE id = :id', array(':id' => $lti_id))->fetchObject();
   
   	//	parameters for LTI Consumer
   	$params = array(
@@ -190,15 +193,13 @@ function lti_consumer_page ($lti_id) {
 	
 	//	call OAuth and display on webpage
 	$post = curl_init($oauth);
-	
-	//	remove comment below to check LTI Header
+
+	//	remove comment below to view LTI Header
+ 
 	//curl_setopt($post, CURLOPT_HEADER, 1);
 	
 	curl_setopt($post, CURLOPT_POST, 1);
 	curl_setopt($post, CURLOPT_POSTFIELDS, $params);
-	curl_setopt($post, CURLOPT_RETURNTRANSFER, 1);
-
-	$response = curl_exec($post);
+	curl_exec($post);
 	curl_close($post);
-  return $response;
 }
