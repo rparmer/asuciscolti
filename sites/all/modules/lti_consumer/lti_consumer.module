@@ -1,5 +1,4 @@
 <?php
-// $Id$
 
 /**
  * @file
@@ -35,22 +34,22 @@ function lti_consumer_admin () {
 
   //$form = drupal_get_form('lti_consumer_admin_form', $lti_id);
   
-  $header = array('Id', 'Name', 'Domain', 'Key', 'Created', 'Updated', 'Preview', 'Edit', 'Delete');
+  $header = array('SID', 'Name', 'Domain', 'Key', 'Created', 'Updated', 'Preview', 'Edit', 'Delete');
 
-  $res = db_query("SELECT * FROM {lti_consumer} ORDER BY id ASC");
+  $res = db_query("SELECT * FROM {lti_consumer} ORDER BY sid ASC");
 
   $rows = array();
   foreach ($res as $r) {
     $row = array();
-    $row[] = $r->id;
+    $row[] = $r->sid;
     $row[] = $r->lti_name;
     $row[] = $r->lti_domain;
     $row[] = $r->lti_key;
     $row[] = format_date($r->created, 'small');
     $row[] = format_date($r->updated, 'small');
-    $row[] = l('Preview', 'lti/' . $r->id);
-    $row[] = l('Edit', 'admin/settings/lti/consumer/edit/' . $r->id);
-    $row[] = l('Delete', 'admin/settings/lti/consumer/delete/' . $r->id);
+    $row[] = l('Preview', 'lti/' . $r->sid);
+    $row[] = l('Edit', 'admin/settings/lti/consumer/edit/' . $r->sid);
+    $row[] = l('Delete', 'admin/settings/lti/consumer/delete/' . $r->sid);
 
     $rows[] = $row;
   }
@@ -62,7 +61,7 @@ function lti_consumer_admin () {
 function lti_consumer_admin_form ($form, &$form_state, $lti_id) {
   $lti = null;
   if (isset($lti_id) && (int)$lti_id > 0) {
-    $lti = db_query('SELECT * FROM {lti_consumer} WHERE id = :id', array(':id' => $lti_id))->fetchObject();
+    $lti = db_query('SELECT * FROM {lti_consumer} WHERE sid = :sid', array(':sid' => $lti_id))->fetchObject();
   }
 
   //$form = array();
@@ -129,7 +128,7 @@ function lti_consumer_admin_form_submit ($form_id, $form_state) {
     	'lti_secret' => $values['lti_secret'],
     	'updated' => REQUEST_TIME,
     	))
-    ->condition('id', $lti_id, '=')
+    ->condition('sid', $lti_id, '=')
     ->execute();
   }
   else {
@@ -156,11 +155,11 @@ function lti_consumer_page ($lti_id, $database_table=NULL) {
  	$database_table = ($database_table) ? $database_table : 'lti_consumer';
   
   	//	query Database for selected LTI info
-	$lti = db_query('SELECT * FROM {' . $database_table . '} WHERE id = :id', array(':id' => $lti_id))->fetchObject();
+	$lti = db_query('SELECT * FROM {' . $database_table . '} WHERE sid = :sid', array(':sid' => $lti_id))->fetchObject();
   
   	//	parameters for LTI Consumer
   	$params = array(
-      "resource_link_id" => $lti->id,
+      "resource_link_id" => $lti->sid,
       "roles" => "Instructor",
       "user_id" => $user->uid,
       "lis_person_name_full" => $user->name,

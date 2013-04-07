@@ -2,7 +2,7 @@
 
 function lti_consumer_install() {
 db_query("CREATE TABLE {lti_consumer} (
-    id int unsigned NOT NULL AUTO_INCREMENT,
+    sid int unsigned NOT NULL AUTO_INCREMENT,
     lti_name varchar(128) NOT NULL default '',
     lti_key varchar(128) NOT NULL default '',
     lti_secret varchar(128) NOT NULL default '',
