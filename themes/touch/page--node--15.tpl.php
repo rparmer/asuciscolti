@@ -11,25 +11,24 @@ if (r==true)
 
 function reviewSubmit()
 {
-  $.ajax({  
-    type: "POST",  
-    url: "/drupal/themes/touch/js/ajaxReview.php",  
-    data: $('#reviewForm').serialize(),  
-    success: function(data,status,jq) {
-      if(data != 'success'){
-        window.alert(data)
-      }else{
-        window.alert('Thank you for the review.'); 
-        $('input:text').val(function(){return ''});
-        $('textarea').val(function(){return ''});
-        $('radio').val(function(){return ''});
-		return true;
-      }
-    }  
-  });  
-  return false;  
-      
-}
+            $.ajax({  
+                type: "POST",  
+                url: "/drupal/themes/touch/js/ajaxReview.php",  
+                data: $('#reviewForm').serialize() + "&sid=" + <?php $_GET['sid'] ?>,  
+                success: function(data,status,jq) {
+                    if(data != 'success'){
+                        window.alert(data)
+                    }else{
+                        window.alert('Thank you for the review.'); 
+                        $('input:text').val(function(){return ''});
+                        $('textarea').val(function(){return ''});
+                        $('radio').val(function(){return ''});
+		                return false;
+                    }
+                }                    
+            });  
+            return false;  
+          }      
 </script>
 
 <?php
@@ -150,8 +149,7 @@ function reviewSubmit()
   
 	  <div id="block-system-main">
 
-			<p>[Preview Generated Here]</p>
-			<br>
+			<iframe id="lti_display" width="100%" height="500" frameborder="0" scrolling="yes"></iframe>						<script>							document.getElementById("lti_display").src =				"http://68.2.131.105:8080/drupal/lti/" + <?php echo $_GET['sid']?>							</script>
 			<input type="button" onclick="disp_confirm()" value="Insert into Classroom">  
 			<input type="button" onclick="location.href='./home'" value="Return to Marketplace">
 			<br/><br/>
@@ -171,7 +169,7 @@ function reviewSubmit()
 	  				</tr>
 	  				<tr>
       						<td>Name:</td>
-	    					<td><input type="text" name="name" size="35" value="Anonymous"/></td>
+                            <td><input type="text" name="name" disabled="disabled" size="35" value="<?php echo $user->name ?>"/></td>
 	  				</tr>
 	  				<tr>
       						<td>Header:</td>

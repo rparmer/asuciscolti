@@ -1,12 +1,4 @@
-﻿<div align=right>
-<?php
-  global $user;
-  if ($user->uid != 0){
-    echo "Welcome $user->name. Click 
-    <a href=\"http://asuciscolti.freeddns.com/user/logout\">here</a> to logout";
-  }
-?>
-</div>
+﻿
 
 <?php
 /**
@@ -45,7 +37,7 @@ function touch_preprocess_page(&$vars) {
         'class' => array('links', 'main-menu', 'clearfix'),
       ),
       'heading' => array(
-        'text' => t('Main menu'),
+        'text' => ('Main menu'),
         'level' => 'h2',
         'class' => array('element-invisible'),
       )

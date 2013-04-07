@@ -37,7 +37,7 @@
  		    <td><?php print drupal_render($form['submitted']['match_by']); ?></td>
  		</tr>
  		<tr>
- 		    <td><b>Domain</b><font color = red> *</font><br/>Link to the specific domain</td>
+ 		    <td valign="top"><b>Domain</b><font color = red> *</font><br/>Link to the specific domain</td>
  		    <td><?php print drupal_render($form['submitted']['domain']); ?></td>
  		</tr>
  		<tr>

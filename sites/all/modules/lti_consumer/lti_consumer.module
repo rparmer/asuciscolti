@@ -102,7 +102,7 @@ function lti_consumer_admin_form ($form, &$form_state, $lti_id) {
 
   $form['lti_id'] = array(
     '#type' => 'value',
-    '#value' => (isset($lti) ? $lti->id : -1),
+    '#value' => (isset($lti) ? $lti->sid : -1),
   );
 
   $form['submit'] = array(
@@ -146,7 +146,7 @@ function lti_consumer_admin_form_submit ($form_id, $form_state) {
   }
 }
 
-function lti_consumer_page ($lti_id, $database_table=NULL) {
+function lti_consumer_page ($lti_id, $database_table='webform_views_add_lti_content_9') {
   	global $user;
 
  	 module_load_include('php', 'oauth_common', 'lib/OAuth');
@@ -166,17 +166,17 @@ function lti_consumer_page ($lti_id, $database_table=NULL) {
       "lis_person_contact_email_primary" => $user->mail,
       "lis_person_sourcedid" => $user->uid,
       "context_id" => $_GET['q'],
-      "context_title" => $lti->lti_name,
-      "context_label" => $lti->lti_name,
+      "context_title" => $lti->name,
+      "context_label" => $lti->name,
       "oauth_callback" => "about:blank",
       "lti_version" => "LTI-1p0",
       "lti_message_type" => "basic-lti-launch-request",
       "lti_submit" => "Launch Endpoint with LTI Data");
       
 	//	set OAuth requirements to LTI info
-	$domain = $lti->lti_domain;
-	$consumer_key = $lti->lti_key;
-	$consumer_secret = $lti->lti_secret;
+	$domain = $lti->domain;
+	$consumer_key = $lti->consumer_key;
+	$consumer_secret = $lti->shared_secret;
 	
 	//	create OAuthConsumer
 	$consumer = new OAuthConsumer($consumer_key, $consumer_secret);
@@ -201,4 +201,5 @@ function lti_consumer_page ($lti_id, $database_table=NULL) {
 	curl_setopt($post, CURLOPT_POSTFIELDS, $params);
 	curl_exec($post);
 	curl_close($post);
+	
 }

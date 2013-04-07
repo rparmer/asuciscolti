@@ -5,13 +5,13 @@
 ?>
 
 <div id="Custom_Form">
-	<table border=0>		<tr>			<td width="250px"><b>Name</b><font color = red> *</font><br/>Name of Suggested Content</td>
+	<table border=0>		<tr>			<td width="250px"><b>LTI Name</b><font color = red> *</font><br/>Name of Suggested LTI</td>
 			<td><?php print drupal_render($form['submitted']['lti_name']); ?></td>
  		</tr>		<tr>
-			<td><b>URL</b><font color = red> *</font><br/>Address to Suggested Content</td>
+			<td><b>URL</b><font color = red> *</font><br/>Address to Suggested LTI</td>
 			<td><?php print drupal_render($form['submitted']['url']); ?></td>			</tr>		<tr>
 			<td valign="top"><b>Desciption</b><font color = red> *</font><br/>
-			Tell us what LTI does and why it would be beneficial to add to Marketplace</td>
+			Tell us what the LTI does and why it would<br/> be beneficial to add to Marketplace</td>
 			<td><?php print drupal_render($form['submitted']['description']); ?></td>
  		</tr>
  	</table>

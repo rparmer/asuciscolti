@@ -63,7 +63,7 @@
  * @see template_preprocess_page()
  * @see template_process()
  */
-?>
+?><div align=right><?php  global $user;  if ($user->uid != 0){    echo "Welcome $user->name. Click     <a href=\"http://asuciscolti.freeddns.com/user/logout\">here</a> to logout";  }?></div>
 <div id="wrapper" class="clearfix">
 <div id="header-top" class="clearfix">
 <div id="logo"><!--start logo-->
@@ -152,5 +152,5 @@
 <?php if (theme_get_setting('footer_copyright')): ?>
 <div id="copyright">Copyright &copy; <?php echo date("Y"); ?>, <?php print $site_name; ?></div>
 <?php endif; ?>
-</div> <!-- /#footer --><div class="clearfix">	  <div id="block-system-main">	    <div id="HomeLTI"></div>	  </div>          </div>
+</div> <!-- /#footer -->
 </div> <!-- /#wrapper -->
