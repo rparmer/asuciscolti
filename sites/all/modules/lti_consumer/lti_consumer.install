@@ -5,8 +5,11 @@
  * Install and Uninstall LTI Consumer Module
  */
 
+/**
+ * Installation settings for LTI Consumer Module.
+ */
 function lti_consumer_install() {
-db_query("CREATE TABLE IF NOT EXISTS {lti_consumer} (
+  db_query("CREATE TABLE IF NOT EXISTS {lti_consumer} (
     sid int unsigned NOT NULL AUTO_INCREMENT,
     name varchar(128) NOT NULL default '',
     consumer_key varchar(128) NOT NULL default '',
@@ -23,7 +26,3 @@ db_query("CREATE TABLE IF NOT EXISTS {lti_consumer} (
     PRIMARY KEY (id)
   )/*!40100 DEFAULT CHARACTER SET utf8 */;");
 }
-
-//function lti_consumer_uninstall() {
-//db_query("DROP TABLE {lti_consumer}");
-//}
