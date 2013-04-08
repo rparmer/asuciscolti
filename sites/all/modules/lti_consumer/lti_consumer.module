@@ -50,9 +50,9 @@ function lti_consumer_admin() {
     $row[] = $r->consumer_key;
     $row[] = format_date($r->created, 'small');
     $row[] = format_date($r->updated, 'small');
-    $row[] = l(t('Preview', 'lti/' . $r->sid));
-    $row[] = l(t('Edit', 'admin/settings/lti/consumer/edit/' . $r->sid));
-    $row[] = l(t('Delete', 'admin/settings/lti/consumer/delete/' . $r->sid));
+    $row[] = l(t('Preview'), 'lti/' . $r->sid);
+    $row[] = l(t('Edit'), 'admin/settings/lti/consumer/edit/' . $r->sid);
+    $row[] = l(t('Delete'), 'admin/settings/lti/consumer/delete/' . $r->sid);
 
     $rows[] = $row;
   }
