@@ -27,7 +27,7 @@ function lti_consumer_menu() {
 }
 
 /**
- * Implements lti_consumer admin page.
+ * Implements LTI admin page.
  */
 function lti_consumer_admin() {
   $lti_id = 0;
@@ -191,7 +191,7 @@ function lti_consumer_page($lti_id, $database_table = 'webform_views_add_lti_con
   $oauth->sign_request($signature, $consumer, '');
   $post = curl_init($oauth);
 
-  // Remove comment below to view LTI Header
+  // Remove comment below to view LTI Header.
   // curl_setopt($post, CURLOPT_HEADER, 1);
   curl_setopt($post, CURLOPT_POST, 1);
   curl_setopt($post, CURLOPT_POSTFIELDS, $params);
