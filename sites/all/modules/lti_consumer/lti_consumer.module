@@ -174,7 +174,7 @@ function lti_consumer_page ($lti_id, $database_table='webform_views_add_lti_cont
       "lti_submit" => "Launch Endpoint with LTI Data");
       
 	//	set OAuth requirements to LTI info
-	$domain = $lti->domain;
+	$domain = $lti->domain.$lti->custom_fields;
 	$consumer_key = $lti->consumer_key;
 	$consumer_secret = $lti->shared_secret;
 	
