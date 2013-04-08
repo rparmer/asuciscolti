@@ -2,3 +2,38 @@
 /**
  *
  */
+ 
+ function webform_submission_render($node, $submission, $email, $format) {
+  $component_tree = array();
+  $renderable = array();
+  $page_count = 1;
+  $excluded_components = isset($email) ? $email['excluded_components'] : array();
+
+  // Meta data that may be useful for modules implementing
+  // hook_webform_submission_render_alter().
+  $renderable['#node'] = $node;
+  $renderable['#submission'] = $submission;
+  $renderable['#email'] = $email;
+  $renderable['#format'] = $format;
+
+  // Set the theme function for submissions.
+  $renderable['#theme'] = array('webform_submission_' . $node->nid, 'webform_submission');
+
+  // Remove excluded components.
+  $components = $node->webform['components'];
+  foreach ($excluded_components as $cid) {
+    unset($components[$cid]);
+  }
+  drupal_alter('webform_submission_render', $renderable);
+  return drupal_render($renderable);
+}
+
+/* simple function to load a particular node */
+/*
+$node = node_load(1);
+$submission = (object) array();
+$enabled = TRUE;
+$preview = FALSE;
+$contact_form = drupal_get_form('webform_client_form_1', $node, $submission, $enabled, $preview);
+
+*/
