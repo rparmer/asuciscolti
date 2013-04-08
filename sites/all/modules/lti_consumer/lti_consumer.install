@@ -23,6 +23,6 @@ function lti_consumer_install() {
 
     created int unsigned NOT NULL default 0,
     updated int unsigned NOT NULL default 0,
-    PRIMARY KEY (id)
+    PRIMARY KEY (sid)
   )/*!40100 DEFAULT CHARACTER SET utf8 */;");
 }
