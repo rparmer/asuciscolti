@@ -1,14 +1,14 @@
 <script>
 function disp_confirm()
 {
-var r=confirm("Are you sure you want to add this LTI to your classroom?") 
+var r=confirm("Are you sure you want to add this LTI to your classroom?")
 if (r==true)
   {
-  alert("This LTI has been added to your classroom.\n\nReturning to Marketplace.");
+  alert("This LTI has been added to your classroom.\n\nReturning to Marketplace.")
   location.href = './home'
   }
 }
-
+</script><script>
 function reviewSubmit()
 {
             $.ajax({  
@@ -146,11 +146,9 @@ function reviewSubmit()
 	
   </section> <!-- /#main -->
   <div class="clearfix">
-  
 	  <div id="block-system-main">
-
 			<iframe id="lti_display" width="100%" height="500" frameborder="0" scrolling="yes"></iframe>						<script>							document.getElementById("lti_display").src =				"http://68.2.131.105:8080/drupal/lti/" + <?php echo $_GET['sid']?>							</script>
-			<input type="button" onclick="disp_confirm()" value="Insert into Classroom">  
+			<input type="button" onclick="disp_confirm();" value="Insert into Classroom">  
 			<input type="button" onclick="location.href='./home'" value="Return to Marketplace">
 			<br/><br/>
 			<div id="RatingBlock">
