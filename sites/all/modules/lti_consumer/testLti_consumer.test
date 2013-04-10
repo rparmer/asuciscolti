@@ -12,16 +12,9 @@ class testLti_consumer extends DrupalWebTestCase {
 		);
 	}
 
-
 	public function setUp() {
 		parent::setUp(array('lti_consumer'));
-		$this->privileged_user = $this->drupalCreateUser(array(
-			'create unit test for lti consumer',
-			'extra special edit any lti consumer test',
-		));
-		$this->drupalLogin($this->privileged_user);
 	}
-
 
 	public function testLtiConsumerMenu() {
 		$result = lti_consumer_menu();
@@ -56,10 +49,10 @@ class testLti_consumer extends DrupalWebTestCase {
 		$rows = array();
 		foreach ($res as $r) {
 			$row = array();
-			$row[] = $r->sid;
-			$row[] = $r->name;
-			$row[] = $r->domain;
-			$row[] = $r->consumer_key;
+			$row[] = $r->id;
+			$row[] = $r->lti_name;
+			$row[] = $r->lti_domain;
+			$row[] = $r->lti_key;
 			$row[] = format_date($r->created, 'small');
 			$row[] = format_date($r->updated, 'small');
 			$row[] = l('Preview', 'lti/' . $r->sid);
