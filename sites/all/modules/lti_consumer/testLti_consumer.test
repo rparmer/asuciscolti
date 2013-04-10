@@ -45,7 +45,7 @@ class testLti_consumer extends DrupalWebTestCase {
 		}
 		$form = drupal_get_form('lti_consumer_admin_form', $lti_id);
 		$header = array('SID', 'Name', 'Domain', 'Key', 'Created', 'Updated', 'Preview', 'Edit', 'Delete');
-		$res = db_query("SELECT * FROM {lti_consumer} ORDER BY id ASC");
+		$res = db_query("SELECT * FROM {lti_consumer} ORDER BY sid ASC");
 		$rows = array();
 		foreach ($res as $r) {
 			$row = array();
