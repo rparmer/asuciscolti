@@ -1,7 +1,6 @@
-; $Id$
-name = LTI Consumer
+name = "LTI Consumer"
 description = LTI Consumer
-
+dependencies[] = oauth_common
 core = 7.x
 package = LTI Consumer
 configure = admin/config/lti/consumer
