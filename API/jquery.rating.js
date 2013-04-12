@@ -8,7 +8,8 @@
 */
 
 /*# AVOID COLLISIONS #*/
-;if(window.jQuery) (function($){
+(function($){
+        Drupal.behaviors.touch = {
 /*# AVOID COLLISIONS #*/
 	
 	// IE6 Background Image Fix
@@ -369,5 +370,5 @@
 	
 	
 /*# AVOID COLLISIONS #*/
-})(jQuery);
+}})(jQuery);
 /*# AVOID COLLISIONS #*/
