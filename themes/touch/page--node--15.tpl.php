@@ -1,36 +1,4 @@
-<script>
-function disp_confirm()
-{
-var r=confirm("Are you sure you want to add this LTI to your classroom?")
-if (r==true)
-  {
-  alert("This LTI has been added to your classroom.\n\nReturning to Marketplace.")
-  location.href = './home'
-  }
-}
-</script><script>
-function reviewSubmit()
-{
-            $.ajax({  
-                type: "POST",  
-                url: "/drupal/themes/touch/js/ajaxReview.php",  
-                data: $('#reviewForm').serialize() + "&sid=" + <?php $_GET['sid'] ?>,  
-                success: function(data,status,jq) {
-                    if(data != 'success'){
-                        window.alert(data)
-                    }else{
-                        window.alert('Thank you for the review.'); 
-                        $('input:text').val(function(){return ''});
-                        $('textarea').val(function(){return ''});
-                        $('radio').val(function(){return ''});
-		                return false;
-                    }
-                }                    
-            });  
-            return false;  
-          }      
-</script>
-
+<script type="text/javascript" src="/drupal/themes/touch/js/PreviewScripts.js" ></script>
 <?php
 /**
  * @file
@@ -96,7 +64,16 @@ function reviewSubmit()
  * @see template_preprocess_page()
  * @see template_process()
  */
-?><div align=right><?php  global $user;  if ($user->uid != 0){    echo "Welcome $user->name. Click     <a href=\"http://asuciscolti.freeddns.com/user/logout\">here</a> to logout";  }?></div>
+?>
+<div align=right>
+<?php
+  global $user;
+  if ($user->uid != 0){
+    echo "Welcome $user->name. Click 
+    <a href=\"http://asuciscolti.freeddns.com/user/logout\">here</a> to logout";
+  }
+?>
+</div>
 <div id="wrapper" class="clearfix">
 <div id="header-top" class="clearfix">
 <div id="logo"><!--start logo-->
@@ -147,7 +124,14 @@ function reviewSubmit()
   </section> <!-- /#main -->
   <div class="clearfix">
 	  <div id="block-system-main">
-			<iframe id="lti_display" width="100%" height="500" frameborder="0" scrolling="yes"></iframe>						<script>							document.getElementById("lti_display").src =				"http://68.2.131.105:8080/drupal/lti/" + <?php echo $_GET['sid']?>							</script>
+			<iframe id="lti_display" width="100%" height="500" frameborder="0" scrolling="yes"></iframe>
+			
+			<script>
+			
+				document.getElementById("lti_display").src =
+				"http://68.2.131.105:8080/drupal/lti/" + <?php echo $_GET['sid']?>
+				
+			</script>
 			<input type="button" onclick="disp_confirm();" value="Insert into Classroom">  
 			<input type="button" onclick="location.href='./home'" value="Return to Marketplace">
 			<br/><br/>
@@ -182,7 +166,8 @@ function reviewSubmit()
   				<input type='reset' value='Clear'>
 			</form>
 			<br/>
-			<h3>Previous reviews will populate here</h3>
+			<h3><u><b>Past Reviews</b></u></h3>
+			<div id="pastReviews"></div>
 			</div>
 	  </div>
 	  
