@@ -44,6 +44,11 @@ function disp_confirm(){
 	}
 }
 
+function edit_lti(sid){
+	location.href =
+	'?q=node/9/submission/' + sid + '/edit&destination=admin_preview?sid=' +sid;
+}
+
 function GetURLParameter(sParam){
   var sPageURL = window.location.search.substring(1);
   var sURLVariables = sPageURL.split('&');

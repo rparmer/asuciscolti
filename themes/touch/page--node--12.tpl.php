@@ -1,3 +1,4 @@
+<script type="text/javascript" src="/drupal/themes/touch/js/PreviewScripts.js" ></script>
 
 <?php
 
@@ -66,7 +67,16 @@
  * @see template_preprocess_page()
  * @see template_process()
  */
-?><div align=right><?php  global $user;  if ($user->uid != 0){    echo "Welcome $user->name. Click     <a href=\"http://asuciscolti.freeddns.com/user/logout\">here</a> to logout";  }?></div>
+?>
+<div align=right>
+<?php
+  global $user;
+  if ($user->uid != 0){
+    echo "Welcome $user->name. Click 
+    <a href=\"http://asuciscolti.freeddns.com/user/logout\">here</a> to logout";
+  }
+?>
+</div>
 <div id="wrapper" class="clearfix">
 <div id="header-top" class="clearfix">
 <div id="logo"><!--start logo-->
@@ -116,8 +126,10 @@
 	
   </section> <!-- /#main -->
   <div class="clearfix">
-	  <div id="block-system-main">	  
-						<iframe id="lti_display" width="100%" height="500" frameborder="0" scrolling="yes"></iframe>
+	  <div id="block-system-main">
+	  
+			
+			<iframe id="lti_display" width="100%" height="500" frameborder="0" scrolling="yes"></iframe>
 			
 			<script>
 			
@@ -126,8 +138,9 @@
 				
 			</script>
 			
-			<input type="button" onclick="location.href='./database'" value="Insert/Update Database">  
-			<input type="button" onclick="location.href='./lti_content'" value="Return to Edit Screen">	
+			<input type="button" onclick="location.href='./database'" value="Return Database">  
+			<input type="button" onclick="edit_lti(<?php echo $_GET['sid']?>);" value="Return to Edit Screen">
+	
 	  </div>
    </div> <!-- /#display LTI content -->
   <?php if ($page['sidebar_first']): ?>
