@@ -1,7 +1,7 @@
 function edit(sid){
 	location.href =
 	'?q=node/9/submission/' + sid + '/edit&destination=admin_preview?sid=' +sid;
-}
+}function preview(sid){	location.href = 		'?q=admin_preview&sid=' + sid;}
 
     (function ($) {
         Drupal.behaviors.touch = {
