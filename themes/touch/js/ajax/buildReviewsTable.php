@@ -1,5 +1,10 @@
 <?php
-  $sid = $_POST['sid'];
+	global $user;
+	$isAdmin = false;
+	foreach($user->roles as $role){
+		if($role == 'administrator') $isAdmin = true;
+	}
+  	$sid = $_POST['sid'];
  	$username="drup197";
  	$password="bandit20";
 	$database="drup197";
@@ -19,8 +24,20 @@
   while($row = mysqli_fetch_array($result))
   {
     $table .=  formatRating($row['rating']) .
-               '<br/>				<i>By:</i> ' . $row['user'] . 
-                '<br/>				<b>' . $row['header'] . '</b>' . 				'<br/>' .				$row['comment'] . 				'<br/><br/>';
+               '<br/>
+				<i>By:</i> ' . $row['user'] . delete($row['id'],$row['name']) .
+                '<br/>
+				<b>' . $row['header'] . '</b>' . 
+				'<br/>' .
+				$row['comment'] . 
+				'<br/><br/>';
+  }
+
+  function delete($sid,$name){
+	if($name == $user->name || $isAdmin){
+		return '<a href="#" onclick="deleteReview(' . (string)$sid . ')">DELETE</a>';
+	}
+	
   }
 
   function formatRating($rating){

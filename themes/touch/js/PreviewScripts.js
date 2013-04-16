@@ -1,12 +1,20 @@
 
 
 function deleteReview(id){
-	var ajaxCall = new XMLHttpRequest();
-	ajaxCall.onreadystatechange = function(){
-		if(ajaxCall.readyState == 4) verifyResponse(ajaxCall.responseText, 'del');
-	}
-	ajaxCall.open("GET","ajax/reviewDelete.php?id=" + id,true);
-	ajaxCall.send();
+	(function ($) {
+	$.ajax({  
+			type: "POST",  
+			url: "/drupal/themes/touch/js/ajax/reviewSubmit.php",  
+			data: $("#reviewForm").serialize() + "&sid=" + GetURLParameter('sid'),  
+			success: function(data,status,jq) {
+				if(data != 'success'){
+					alert(data); 
+				}else{
+					alert('Thank you for your review');
+				}
+			}  
+	});  
+	})(jQuery);
 }
 
 function verifyResponse(response,type){
