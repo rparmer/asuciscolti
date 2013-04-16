@@ -1,5 +1,5 @@
 <?php
-  $sid = $_GET['sid'];
+  $sid = $_POST['sid'];
  	$username="drup197";
  	$password="bandit20";
 	$database="drup197";
@@ -9,44 +9,32 @@
  	$query = "
  				SELECT * 
  				FROM LTIComments
-        WHERE LTIKey = " + $sid;
+        WHERE LTIKey = " . (string)$sid;
 
  	$result = mysqli_query($link,$query);
  	if(!$result)  die( "Query: " . $query . "\nError:" . mysql_error() );
 
-  $table = "<table>";  
+  $table = '<p>';  
 
   while($row = mysqli_fetch_array($result))
   {
-    $table .=  "<tr>
-               <td>Rating:</td>" .
-               formatRating($row['rating']) .
-               "</tr>
-                <tr>
-                <td>Name: " . $row['user'] . "</td>
-                </tr>
-                <tr>
-                <td>Header: " . $row['header'] . "</td>
-                </tr>
-                <tr>
-                <td>Comments: <br/>" . $row['comment'] . "</td>
-                </tr>";
-
+    $table .=  formatRating($row['rating']) .
+               '<br/>				<i>By:</i> ' . $row['user'] . 
+                '<br/>				<b>' . $row['header'] . '</b>' . 				'<br/>' .				$row['comment'] . 				'<br/><br/>';
   }
 
   function formatRating($rating){
-    $return = "<td>";
+    $return = "";
     for($i=0;$i<5;$i++){
       if($i == $rating)
-        $return .= '<input name="rating" type="radio" class="star" disabled="disabled" checked="checked"/>';
+        $return .= '<input type="radio" class="star" disabled="disabled" checked="checked"/>';
       else
-        $return .= '<input name="rating" type="radio" class="star" disabled="disabled"/>';
+        $return .= '<input type="radio" class="star" disabled="disabled"/>';
     }
-    $return .= "</td>";
     return $return;
   }
 
-  $table .= "</table>";
+  $table .= "</p>";
   echo $table
 
 ?>

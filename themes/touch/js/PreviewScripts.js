@@ -9,17 +9,6 @@ function deleteReview(id){
 	ajaxCall.send();
 }
 
-function reviewSubmit(){
-  var sid = GetURLParameter('sid');
-	var url = 	"ajax/reviewSubmit.php?" + document.getElementById("reviewForm").serialize() + "&sid=" + sid;
-	var ajaxCall = new XMLHttpRequest();
-	ajaxCall.onreadystatechange = function(){
-		if(ajaxCall.readyState == 4) verifyResponse(ajaxCall.responseText, 'sub');
-	}
-	ajaxCall.open("GET",url,true);
-	ajaxCall.send();
-}
-
 function verifyResponse(response,type){
 	if(response != 'success') alert(response);
 	else{
@@ -45,8 +34,8 @@ function disp_confirm(){
 }
 
 function edit_lti(sid){
-	location.href =
-	'?q=node/9/submission/' + sid + '/edit&destination=admin_preview?sid=' +sid;
+    location.href = 
+    '?q=node/9/submission/' + sid + '/edit&destination=admin_preview?sid=' +sid;
 }
 
 function GetURLParameter(sParam){
@@ -59,7 +48,26 @@ function GetURLParameter(sParam){
   }
   
 }
-
+function reviewSubmit(){
+(function ($) {
+	$.ajax({  
+			type: "POST",  
+			url: "/drupal/themes/touch/js/ajax/reviewSubmit.php",  
+			data: $("#reviewForm").serialize() + "&sid=" + GetURLParameter('sid'),  
+			success: function(data,status,jq) {
+				if(data != 'success'){
+					alert(data); 
+				}else{
+					alert('Thank you for your review');
+					$('input:text').val(function(){return ''});
+					$('input:radio').val(function(){return ''});
+					$('textarea').val(function(){return ''});
+				}
+			}  
+	});  
+	})(jQuery);
+	return false;
+}
 
 (function ($) {
     Drupal.behaviors.touch = {

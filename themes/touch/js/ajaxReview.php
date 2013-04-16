@@ -1,19 +1,21 @@
-<?ph
+<?php
       
     // validation expected data exists
-    if(!isset($_POST['name']) || $_POST['name'] == ''
-       || !isset($_POST['rating']) || $_POST['rating'] == ''
-       || !isset($_POST['header']) || $_POST['header'] == ''
-       || !isset($_POST['comment']) || $_POST['comment'] == '') {
-        echo 'We are sorry, but there appears to be a problem with the form you submitted.';
-		die();
-    }
      
-    $rating = $_POST['rating']; // required
-    $name = $_POST['name']; // required
-    $header = $_POST['header']; // required
-    $comment = $_POST['comment']; // required
-    
+    $username = "drup197";
+    $password = "bandit20";
+    $database = "drup197";
+    $server = "localhost";
+    $link = mysqli_connect($server, $username, $password,$database);
+
+    $query = "INSERT INTO LTIComments(LTIKey,rating,comment)
+        VALUES($_POST['key'],$_POST['rating'],$_POST['comment'])";
+
+    $result = mysqli_query($link,$query);
+    if(!$result) error();
     echo 'success';    
 
+    error(){
+        die('There was an error with the form you submitted. Please try again, or contact the site admin.');
+    }
 ?>
