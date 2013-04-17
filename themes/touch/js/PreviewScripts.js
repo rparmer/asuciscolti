@@ -4,13 +4,14 @@ function deleteReview(id){
 	(function ($) {
 	$.ajax({  
 			type: "POST",  
-			url: "/drupal/themes/touch/js/ajax/reviewSubmit.php",  
-			data: $("#reviewForm").serialize() + "&sid=" + GetURLParameter('sid'),  
+			url: "/drupal/themes/touch/js/ajax/reviewDelete.php",  
+			data: "id=" + id,  
 			success: function(data,status,jq) {
 				if(data != 'success'){
 					alert(data); 
 				}else{
-					alert('Thank you for your review');
+					alert('The Comment has been deleted.');
+					pullPastReviews();
 				}
 			}  
 	});  
@@ -70,6 +71,7 @@ function reviewSubmit(){
 					$('input:text').val(function(){return ''});
 					$('input:radio').val(function(){return ''});
 					$('textarea').val(function(){return ''});
+					pullPastReviews();
 				}
 			}  
 	});  
@@ -77,18 +79,26 @@ function reviewSubmit(){
 	return false;
 }
 
-(function ($) {
-    Drupal.behaviors.touch = {
-        attach: function(context, settings) {
+function pullPastReviews(){
+	(function ($) {
+	var username = "<?php echo $name; ?>";
+	  var admin = "<?php echo $isadmin; ?>";
           var sid = GetURLParameter('sid');
 		      $.ajax({  
             type: "POST",  
             url: "/drupal/themes/touch/js/ajax/buildReviewsTable.php",  
-            data: "sid=" + sid,  
+            data: "sid=" + sid + "&username=" + username + "&isadmin=" + admin,  
             success: function(data,status,jq) {
               document.getElementById('pastReviews').innerHTML = data; 
             }  
           });  
+	})(jQuery);
+}
+
+(function ($) {
+    Drupal.behaviors.touch = {
+        attach: function(context, settings) {
+	  	pullPastReviews();
             }
     }
 })(jQuery);

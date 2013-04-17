@@ -1,9 +1,7 @@
 <?php
-	global $user;
-	$isAdmin = false;
-	foreach($user->roles as $role){
-		if($role == 'administrator') $isAdmin = true;
-	}
+	$user = $_POST['username'];
+	$isadmin = $_POST['isadmin'];
+
   	$sid = $_POST['sid'];
  	$username="drup197";
  	$password="bandit20";
@@ -14,7 +12,7 @@
  	$query = "
  				SELECT * 
  				FROM LTIComments
-        WHERE LTIKey = " . (string)$sid;
+        			WHERE LTIKey = " . (string)$sid;
 
  	$result = mysqli_query($link,$query);
  	if(!$result)  die( "Query: " . $query . "\nError:" . mysql_error() );
@@ -34,9 +32,9 @@
   }
 
   function delete($sid,$name){
-	if($name == $user->name || $isAdmin){
+	if($name == $user->name){
 		return '<a href="#" onclick="deleteReview(' . (string)$sid . ')">DELETE</a>';
-	}
+	}else return '';
 	
   }
 
@@ -51,7 +49,7 @@
     return $return;
   }
 
-  $table .= "</p>";
+  $table .= $user . $isadmin . "</p>";
   echo $table
 
 ?>

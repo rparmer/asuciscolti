@@ -1,3 +1,13 @@
+<?php
+  global $user;
+  $name = $user->name;
+  $isadmin = false;
+  foreach($user->roles as $role){
+	if($role == 'administrator'){
+		$isadmin = true;
+	}
+  }
+?>
 <script type="text/javascript" src="/drupal/themes/touch/js/PreviewScripts.js" ></script>
 <?php
 /**
@@ -67,7 +77,7 @@
 ?>
 <div align=right>
 <?php
-  global $user;
+
   if ($user->uid != 0){
     echo "Welcome $user->name. Click 
     <a href=\"http://asuciscolti.freeddns.com/user/logout\">here</a> to logout";
