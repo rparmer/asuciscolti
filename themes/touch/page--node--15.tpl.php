@@ -142,8 +142,8 @@
 				"http://68.2.131.105:8080/drupal/lti/" + <?php echo $_GET['sid']?>
 				
 			</script>
-			<input type="button" onclick="disp_confirm();" value="Insert into Classroom">  
-			<input type="button" onclick="location.href='./home'" value="Return to Marketplace">
+			<input type="button" onclick="disp_confirm();" value="Insert into Classroom" class="form-submit">  
+			<input type="button" onclick="location.href='./home'" value="Return to Marketplace" class="form-submit">
 			<br/><br/>
 			<div id="RatingBlock">
 			<h2>Rate this LTI</h2>
@@ -172,8 +172,8 @@
 	    					<td><textarea rows='5' cols='28' spellcheck='1' name='comment'></textarea></td>
 	  				</tr>
   				</table>
-  				<input type='submit' class="contactButton" value='Send'>
-  				<input type='reset' value='Clear'>
+  				<input type="submit" value="Submit" class="form-submit">
+  				<input type="reset" value="Clear" class="form-submit">
 			</form>
 			<br/>
 			<h3><u><b>Past Reviews</b></u></h3>
