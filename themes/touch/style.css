@@ -2163,7 +2163,18 @@ td{
 	width:inherit;
 }
 
-/************************END Home Page**********************************/
+/************************END Home Page********************************/
+
+/************************Database Page********************************/
+
+#DatabaseLTI .paginate_enabled_previous, .paginate_disabled_previous,
+	.paginate_enabled_next, .paginate_disabled_next td{
+
+	padding: 0px 5px 0px 0px;
+
+}
+
+/************************END Database Page***************************/
 
 /* jQuery.Rating Plugin CSS - http://www.fyneworks.com/jquery/star-rating/ */
 /**Updated to work with drupal 20130328JHB **/
