@@ -138,8 +138,8 @@
 				
 			</script>
 			
-			<input type="button" onclick="location.href='./database'" value="Return Database">  
-			<input type="button" onclick="edit_lti(<?php echo $_GET['sid']?>);" value="Return to Edit Screen">
+			<input type="button" onclick="location.href='./database'" value="Return Database" class="form-submit">  
+			<input type="button" onclick="edit_lti(<?php echo $_GET['sid']?>);" value="Return to Edit Screen" class="form-submit">
 	
 	  </div>
    </div> <!-- /#display LTI content -->
