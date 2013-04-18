@@ -7,6 +7,7 @@
                         "bScrollInfinite": true,
                         "sScrollY": "1000px",
                         "sDom": '<"top">rt<"bottom">',
+			"aaSorting": [],
                         "sAjaxSource": "/drupal/API/HomeDataPull.php",
                         "aoColumns": [
 				{ "sWidth": "25%" },
