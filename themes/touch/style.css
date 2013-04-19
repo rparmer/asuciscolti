@@ -2163,6 +2163,12 @@ td{
 	width:inherit;
 }
 
+.letterHead {
+	height:100%;
+	width:100%;
+	background-color: #E3E4FA;
+}
+
 /************************END Home Page********************************/
 
 /************************Database Page********************************/
