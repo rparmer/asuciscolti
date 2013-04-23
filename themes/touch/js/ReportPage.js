@@ -12,7 +12,7 @@ function listAllContent() {
 				{ "sTitle": "Name" },
 				{ "sTitle": "Consumer key" },
 				{ "sTitle": "Shared secret" },
-				{ "sTitle": "Domain" },
+				{ "sTitle": "Domain", "sWidth": "45%" },
 				{ "sTitle": "Privacy" },
 				{ "sTitle": "Submitted" }
 			]
