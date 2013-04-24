@@ -12,10 +12,12 @@ function listAllContent() {
 				{ "sTitle": "Name" },
 				{ "sTitle": "Consumer key" },
 				{ "sTitle": "Shared secret" },
-				{ "sTitle": "Domain", "sWidth": "45%" },
+				{ "sTitle": "Domain" },
 				{ "sTitle": "Privacy" },
 				{ "sTitle": "Submitted" }
-			]
+			],
+			"bAutoWidth": true
+
 		});
 	})(jQuery);
 }
