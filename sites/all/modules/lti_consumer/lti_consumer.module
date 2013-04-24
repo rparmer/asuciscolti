@@ -3,6 +3,12 @@
 /**
  * @file
  * LTI Consumer: expose a Drupal path to a third-party application
+ *
+ * Framework for LTI Consumer pulled from Drupal 6 project and modified to
+ * work with Drupal 7 and fill needs of this project
+ *
+ * Source file found at:
+ * http://drupal.org/sandbox/samo/1156848
  */
 
 /**
