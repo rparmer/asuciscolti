@@ -12,7 +12,7 @@
 	$result = mysqli_query($link,$query);
  	if(!$result)  die( "Query: " . $query . "\nError:" . mysql_error() );		 
 	echo "<table>";
-	while($row = mysql_fetch_assoc($result))
+	while($row = mysql_fetch_assoc($result)) //might hav to change to arrayjq
 	{
 	echo "<tr><td>$row[lti_name]</td></tr>";
 	echo "<tr><td>$row[url]</td></tr>";
