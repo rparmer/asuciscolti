@@ -3,8 +3,8 @@ function listAllContent() {
 		$('#reportsData').html('<table width="100%" cellspacing="0" cellpadding="0" id="data-entry"></table>');
 		$('#data-entry').dataTable({
 			"bProcessing": true,
-			"bScrollInfinite": true,
-			"sScrollY": "100%",
+			"bScrollInfinite": true,						"bAutoWidth": true,
+			"sScrollY": "100%",						"iDisplayLength": -1,
 			"sDom": '<"top">rt<"bottom">',
 			"aaSorting": [],
 			"sAjaxSource": "/drupal/API/Report/listAllContentPull.php",
@@ -16,8 +16,6 @@ function listAllContent() {
 				{ "sTitle": "Privacy", "sWidth": "12.5%" },
 				{ "sTitle": "Submitted", "sWidth": "12.5%" }
 			],
-			"bAutoWidth": true
-
 		});
 	})(jQuery);
 }
