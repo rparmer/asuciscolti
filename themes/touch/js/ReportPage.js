@@ -34,7 +34,7 @@ function listExpirationDates() {
 			"aaSorting": [[1,"asc"]],
 			"sAjaxSource": "/drupal/API/Report/listExpirationDatesPull.php",
 			"aoColumns": [
-				{ "sTitle": "Name", "sWidth": "15%" },
+				{ "sTitle": "Name", "sWidth": "60%" },
 				{ "sTitle": "Expiration date" }
 			],
 			"bAutoWidth": true
