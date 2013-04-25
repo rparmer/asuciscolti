@@ -1,6 +1,6 @@
 function listAllContent() {
 	(function($) {
-		$('#reportsData').html('<table width="100%" 		cellspacing="0" cellpadding="0" id="data-entry"></table>');
+		$('#reportsData').html('<table width="100%" cellspacing="0" cellpadding="0" id="data-entry"></table>');
 		$('#data-entry').dataTable({
 			"bProcessing": true,
 			"bScrollInfinite": true,
@@ -21,3 +21,25 @@ function listAllContent() {
 		});
 	})(jQuery);
 }
+
+
+function listExpirationDates() {
+	(function($) {
+		$('#reportsData').html('<table width="100%" cellspacing="0" cellpadding="0" id="data-entry"></table>');
+		$('#data-entry').dataTable({
+			"bProcessing": true,
+			"bScrollInfinite": true,
+			"sScrollY": "100%",
+			"sDom": '<"top">rt<"bottom">',
+			"aaSorting": [[1,"asc"]],
+			"sAjaxSource": "/drupal/API/Report/listExpirationDatesPull.php",
+			"aoColumns": [
+				{ "sTitle": "Name", "sWidth": "15%" },
+				{ "sTitle": "Expiration date" }
+			],
+			"bAutoWidth": true
+
+		});
+	})(jQuery);
+}
+
