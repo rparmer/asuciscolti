@@ -11,7 +11,7 @@
    unset($form['submitted']['description']['#title']);   
    unset($form['submitted']['app_indicator']['#title']);
 
-   unset($form['submitted']['display_image']['#title']);
+   unset($form['submitted']['display_image']['#title']);      unset($form['submitted']['expiration_date']['#title']);
  ?>
 
  <div id="Custom_Form">
@@ -47,7 +47,7 @@
 		<tr>
 		
  		    <td><b>App Indicator</b><font color = red> *</font><br/>Indicate whether the application is free or Premium</td>				<td><?php print drupal_render($form['submitted']['app_indicator']); ?></td>
-		</tr>
+		</tr>		<tr>					<td><b>Expiration Date</b><br/>State when LTI expires (optional)</td>						<td><?php print drupal_render($form['submitted']['expiration_date']); ?></td>					</tr>		
  		<tr>
  		    <td valign="top"><b>Custom Fields</b><br/>Configure optional add-ons</td>
  		    <td><?php print drupal_render($form['submitted']['custom_fields']); ?></td>
