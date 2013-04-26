@@ -65,13 +65,13 @@ function reviewSubmit(){
 			data: $("#reviewForm").serialize() + "&sid=" + GetURLParameter('sid'),  
 			success: function(data,status,jq) {
 				if(data != 'success'){
-					alert(data); 
+					alert('Error: Unable to add review'); 
 				}else{
 					alert('Thank you for your review');
 					$('input:text').val(function(){return ''});
 					$('input:radio').val(function(){return ''});
 					$('textarea').val(function(){return ''});
-					pullPastReviews();
+					//pullPastReviews();					location.reload();					
 				}
 			}  
 	});  
