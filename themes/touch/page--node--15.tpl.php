@@ -150,15 +150,14 @@
       						</td>
 	  				</tr>
 	  				<tr>
-      						<td>Name:</td>
-                            <td><input type="text" name="name" disabled="disabled" size="35" value="<?php echo $user->name ?>"/></td>
+                            <td><input type="text" name="name" size="35" value="<?php echo $user->name ?>" HIDDEN /></td>
 	  				</tr>
 	  				<tr>
-      						<td>Header:</td>
+      						<td>Title:</td>
 	    					<td><input type="text" name="header" size="35"/></td>
 	  				</tr>
 	  				<tr>
-      						<td>Comments:</td>
+      						<td>Comment:</td>
 	    					<td><textarea rows='5' cols='28' spellcheck='1' name='comment'></textarea></td>
 	  				</tr>
   				</table>

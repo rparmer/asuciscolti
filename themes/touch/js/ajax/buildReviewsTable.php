@@ -23,7 +23,7 @@
   {
     $table .=  formatRating($row['rating']) .
                '<br/>
-				<i>By:</i> ' . $row['user'] . delete($row['id'],$row['name']) .
+				<i>By:</i> ' . $row['user'] . ' ' .delete($row['id'],$row['name']) .
                 '<br/>
 				<b>' . $row['header'] . '</b>' . 
 				'<br/>' .
@@ -40,7 +40,7 @@
 
   function formatRating($rating){
     $return = "";
-    for($i=0;$i<5;$i++){
+    for($i=1;$i<6;$i++){
       if($i == $rating)
         $return .= '<input type="radio" class="star" disabled="disabled" checked="checked"/>';
       else

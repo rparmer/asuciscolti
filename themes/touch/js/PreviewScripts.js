@@ -8,7 +8,7 @@ function deleteReview(id){
 			data: "id=" + id,  
 			success: function(data,status,jq) {
 				if(data != 'success'){
-					alert(data); 
+					alert('The comment has been deleted.'); 										pullPastReviews();
 				}else{
 					alert('The Comment has been deleted.');
 					pullPastReviews();
