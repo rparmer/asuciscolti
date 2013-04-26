@@ -1,21 +1,26 @@
 function listAllContent() {
 	(function($) {
-		$('#reportsData').html('<table width="100%" cellspacing="0" cellpadding="0" id="data-entry"></table>');
+		$('#reportsData').html('<table width="100%" cellspacing="3" align="left" cellpadding="0" id="data-entry"></table>');
 		$('#data-entry').dataTable({
 			"bProcessing": true,
-			"bScrollInfinite": true,						"bAutoWidth": true,
-			"sScrollY": "100%",						"iDisplayLength": -1,
+			"bScrollInfinite": true,
+			"sScrollX": "100%", 
+			"bScrollCollapse": true,
+			"bAutoWidth": true,
+			"sScrollY": "100%",
+			"iDisplayLength": -1,
 			"sDom": '<"top">rt<"bottom">',
 			"aaSorting": [],
 			"sAjaxSource": "/drupal/API/Report/listAllContentPull.php",
 			"aoColumns": [
-				{ "sTitle": "Name", "sWidth": "15%" },
-				{ "sTitle": "Consumer key", "sWidth": "12.5%" },
-				{ "sTitle": "Shared secret", "sWidth": "12.5%" },
+				{ "sTitle": "Name" },
+				{ "sTitle": "Consumer key" },
+				{ "sTitle": "Shared secret" },
 				{ "sTitle": "Domain" },
-				{ "sTitle": "Privacy", "sWidth": "12.5%" },
-				{ "sTitle": "Submitted", "sWidth": "12.5%" }
-			],
+				{ "sTitle": "Privacy" },
+				{ "sTitle": "Submitted" }
+			]
+
 		});
 	})(jQuery);
 }
@@ -26,7 +31,7 @@ function listExpirationDates() {
 		$('#reportsData').html('<table width="100%" cellspacing="0" cellpadding="0" id="data-entry"></table>');
 		$('#data-entry').dataTable({
 			"bProcessing": true,
-			"bScrollInfinite": true,
+			"bScrollInfinite": true,						"bAutoWidth": true,
 			"sScrollY": "100%",
 			"sDom": '<"top">rt<"bottom">',
 			"aaSorting": [[1,"asc"]],
@@ -34,9 +39,7 @@ function listExpirationDates() {
 			"aoColumns": [
 				{ "sTitle": "Name", "sWidth": "60%" },
 				{ "sTitle": "Expiration date" }
-			],
-			"bAutoWidth": true
-
+			]
 		});
 	})(jQuery);
 }
