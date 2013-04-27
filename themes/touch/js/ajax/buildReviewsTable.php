@@ -22,7 +22,7 @@
   {
     $table .=  formatRating($row['rating']) .
                '<br/>
-				<i>By:</i> ' . $row['user'] . ' ' .delete($row['user']) .
+				<i>By:</i> ' . $row['user'] . ' ' .delete($row['sid'],$row['user']) .
                 '<br/>
 				<b>' . $row['header'] . '</b>' . 
 				'<br/>' .
@@ -30,7 +30,7 @@
 				'<br/><br/>';
   }
 
-  function delete($name){	global $user;	global $isadmin;
+  function delete($sid,$name){	global $user;	global $isadmin;
 	if($name == $user || $isadmin == 'true'){
 		return '<a href="#" onclick="deleteReview(' . (string)$sid . ')">DELETE</a>';
 	}else return '';
