@@ -8,7 +8,8 @@ function deleteReview(id){
 			data: "id=" + id,  
 			success: function(data,status,jq) {
 				if(data != 'success'){
-					alert('The comment has been deleted.'); 										pullPastReviews();
+					alert(data); 
+					
 				}else{
 					alert('The Comment has been deleted.');
 					pullPastReviews();
@@ -71,7 +72,7 @@ function reviewSubmit(){
 					$('input:text').val(function(){return ''});
 					$('input:radio').val(function(){return ''});
 					$('textarea').val(function(){return ''});
-					pullPastReviews();
+					location.reload();
 				}
 			}  
 	});  
@@ -87,9 +88,11 @@ function pullPastReviews(){
             url: "/drupal/themes/touch/js/ajax/buildReviewsTable.php",  
             data: "sid=" + sid + "&username=" + userName + "&isadmin=" + isAdmin,  
             success: function(data,status,jq) {
-              document.getElementById('pastReviews').innerHTML = data; 			  
+              document.getElementById('pastReviews').innerHTML = data; 
+			  
             }  
-          });  		$('input[type=radio].star').rating();
+          });  
+		$('input[type=radio].star').rating();
 	})(jQuery);
 }
 
