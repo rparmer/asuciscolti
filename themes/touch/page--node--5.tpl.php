@@ -111,7 +111,7 @@
     <?php if ($action_links): ?><ul class="action-links"><?php print render($action_links); ?></ul><?php endif; ?>
     <?php print render($page['content']); ?>	
   </section> <!-- /#main -->
-   <div class="clearfix">   	  <div id="block-system-main">	  	    <h4> Main LTI Database </h4>			    <div id="DatabaseLTI"></div>			    <br>			    <h4>Submitted Suggestions for LTIs</h4>			    [List suggestions here]	  </div>	     </div> <!-- /#display main lti database -->
+   <div class="clearfix">   	  <div id="block-system-main">	  	    <h4> Main LTI Database </h4>			    <div id="DatabaseLTI"></div>			  </div>	     </div> <!-- /#display main lti database -->
   <?php if ($page['sidebar_first']): ?>
     <aside id="sidebar-first" role="complementary" class="sidebar clearfix">
       <?php print render($page['sidebar_first']); ?>
