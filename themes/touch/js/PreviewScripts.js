@@ -65,13 +65,13 @@ function reviewSubmit(){
 			data: $("#reviewForm").serialize() + "&sid=" + GetURLParameter('sid'),  
 			success: function(data,status,jq) {
 				if(data != 'success'){
-					alert('Error: Unable to add review'); 
+					alert(data); 
 				}else{
 					alert('Thank you for your review');
 					$('input:text').val(function(){return ''});
 					$('input:radio').val(function(){return ''});
 					$('textarea').val(function(){return ''});
-					//pullPastReviews();					location.reload();					
+					pullPastReviews();
 				}
 			}  
 	});  
@@ -81,17 +81,15 @@ function reviewSubmit(){
 
 function pullPastReviews(){
 	(function ($) {
-	var username = "<?php echo $name; ?>";
-	  var admin = "<?php echo $isadmin; ?>";
           var sid = GetURLParameter('sid');
 		      $.ajax({  
             type: "POST",  
             url: "/drupal/themes/touch/js/ajax/buildReviewsTable.php",  
-            data: "sid=" + sid + "&username=" + username + "&isadmin=" + admin,  
+            data: "sid=" + sid + "&username=" + userName + "&isadmin=" + isAdmin,  
             success: function(data,status,jq) {
-              document.getElementById('pastReviews').innerHTML = data; 
+              document.getElementById('pastReviews').innerHTML = data; 			  
             }  
-          });  
+          });  		$('input[type=radio].star').rating();
 	})(jQuery);
 }
 

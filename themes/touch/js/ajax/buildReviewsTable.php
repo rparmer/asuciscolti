@@ -1,7 +1,6 @@
 <?php
 	$user = $_POST['username'];
 	$isadmin = $_POST['isadmin'];
-
   	$sid = $_POST['sid'];
  	$username="drup197";
  	$password="bandit20";
@@ -23,7 +22,7 @@
   {
     $table .=  formatRating($row['rating']) .
                '<br/>
-				<i>By:</i> ' . $row['user'] . ' ' .delete($row['id'],$row['name']) .
+				<i>By:</i> ' . $row['user'] . ' ' .delete($row['user']) .
                 '<br/>
 				<b>' . $row['header'] . '</b>' . 
 				'<br/>' .
@@ -31,8 +30,8 @@
 				'<br/><br/>';
   }
 
-  function delete($sid,$name){
-	if($name == $user->name){
+  function delete($name){	global $user;	global $isadmin;
+	if($name == $user || $isadmin == 'true'){
 		return '<a href="#" onclick="deleteReview(' . (string)$sid . ')">DELETE</a>';
 	}else return '';
 	
@@ -49,7 +48,7 @@
     return $return;
   }
 
-  $table .= $user . $isadmin . "</p>";
+  $table .= "</p>";
   echo $table
 
 ?>
