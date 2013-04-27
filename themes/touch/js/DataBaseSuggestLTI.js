@@ -1,35 +1,22 @@
-
-
+  
+	
     (function ($) {
-
         Drupal.behaviors.touch = {
-
             attach: function(context, settings) {
-
                 $('#SuggestedLTI').html('<table width="100%" cellspacing="0" cellpadding="0" id="data-entry"></table>');
-
                 $('#data-entry').dataTable({
-
 	                "bProcessing": true,
-
-                        "bScrollInfinite": true,
-
-                        "sScrollY": "1000px",
-
-                        "sDom": '<"top">rt<"bottom">',
-
-                        "sAjaxSource": "/drupal/API/SuggestedLTIPull.php",
-
+		
+                       "sDom": '<"inline"l><"floatright"f>rt<ip>',
+						"sAjaxSource": "/drupal/API/DataBaseSuggestLTIPull.php",
                         "aoColumns": [
-
-				{ "sWidth": "25%" },
-
-				 	{ "sWidth": "25%" },
-					]
-
+						{ "sTitle": "LTI Name ", "sWidth": "40px" },
+						{ "sTitle": "URL", "sWidth": "50px" },
+						{ "sTitle": "Description", "sWidth": "50px" },
+                        { "sWidth": "18px" }
+                         ]
                 });
+
             }
-
         }
-
     })(jQuery);
