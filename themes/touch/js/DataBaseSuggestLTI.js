@@ -7,7 +7,7 @@
                 $('#data-entry').dataTable({
 	                "bProcessing": true,
                     "sDom": '<"inline"l><"floatright"f>rt<ip>',
-					"sAjaxSource": "/drupal/API/DataBaseSuggestLTIPull.php",
+					"sAjaxSource": "/drupal/API/DatabaseSuggestLTIPull.php",
                     "aoColumns": [
 						{ "sTitle": "LTI Name ", "sWidth": "60px" },
 						{ "sTitle": "URL", "sWidth": "60px" },
