@@ -4,8 +4,8 @@
  * @file
  * LTI Consumer: expose a Drupal path to a third-party application
  *
- * Framework for LTI Consumer pulled from Drupal 6 project and modified to
- * work with Drupal 7 and fill needs of this project
+ * Framework for LTI Consumer pulled from Drupal 6 developer project 
+ * and modified to work with Drupal 7 and fill needs of this project
  *
  * Source file found at:
  * http://drupal.org/sandbox/samo/1156848
@@ -16,12 +16,6 @@
  */
 function lti_consumer_menu() {
   $items = array();
-  $items['admin/settings/lti/consumer'] = array(
-    'title' => 'LTI Consumer Admin Settings',
-    'page callback' => 'lti_consumer_admin',
-    'access arguments' => array('administer site configuration'),
-  );
-
   $items['lti/%'] = array(
     'title' => 'LTI Consumer Settings',
     'page callback' => 'lti_consumer_page',
@@ -33,146 +27,18 @@ function lti_consumer_menu() {
 }
 
 /**
- * Implements LTI admin page.
- */
-function lti_consumer_admin() {
-  $lti_id = 0;
-
-  if (arg(5)) {
-    $lti_id = arg(5);
-  }
-
-  $header = array('SID', 'Name', 'Domain', 'Key', 'Created', 'Updated',
-    'Preview', 'Edit', 'Delete');
-
-  $res = db_query("SELECT * FROM {lti_consumer} ORDER BY sid ASC");
-
-  $rows = array();
-  foreach ($res as $r) {
-    $row = array();
-    $row[] = $r->sid;
-    $row[] = $r->name;
-    $row[] = $r->domain;
-    $row[] = $r->consumer_key;
-    $row[] = format_date($r->created, 'small');
-    $row[] = format_date($r->updated, 'small');
-    $row[] = l(t('Preview'), 'lti/' . $r->sid);
-    $row[] = l(t('Edit'), 'admin/settings/lti/consumer/edit/' . $r->sid);
-    $row[] = l(t('Delete'), 'admin/settings/lti/consumer/delete/' . $r->sid);
-
-    $rows[] = $row;
-  }
-
-  //return drupal_get_form('lti_consumer_admin_form', $lti_id);
-  return theme('table', array('header' => $header, 'rows' => $rows));
-}
-
-/**
- * Create form for adding/editing content.
- */
-function lti_consumer_admin_form($form, &$form_state, $lti_id) {
-  $lti = NULL;
-  if (isset($lti_id) && (int) $lti_id > 0) {
-    $lti = db_query('SELECT * FROM {lti_consumer} WHERE sid = :sid',
-      array(':sid' => $lti_id))->fetchObject();
-  }
-
-  $form['lti'] = array(
-    '#type' => 'fieldset',
-    '#title' => 'New LTI Consumer',
-  );
-
-  $form['lti']['name'] = array(
-    '#type' => 'textfield',
-    '#title' => 'Consumer Name',
-    '#description' => 'A unqiue name for this LTI consumer',
-    '#default_value' => (isset($lti) ? $lti->name : 'IMS Test Content'),
-    '#required' => TRUE,
-  );
-
-  $form['lti']['domain'] = array(
-    '#type' => 'textarea',
-    '#title' => 'Consumer Domain',
-    '#description' => 'The LTI tool domain',
-    '#default_value' => (isset($lti) ? $lti->domain :
-      'http://www.imsglobal.org/developers/LTI/test/v1p1/tool.php'),
-    '#required' => TRUE,
-  );
-
-  $form['lti']['consumer_key'] = array(
-    '#type' => 'textfield',
-    '#title' => 'Consumer Key',
-    '#description' => 'The LTI consumer key',
-    '#default_value' => (isset($lti) ? $lti->consumer_key : '12345'),
-    '#required' => TRUE,
-  );
-
-  $form['lti']['shared_secret'] = array(
-    '#type' => 'textfield',
-    '#title' => 'Consumer Secret',
-    '#description' => 'The LTI consumer secret',
-    '#default_value' => (isset($lti) ? $lti->shared_secret : 'secret'),
-    '#required' => TRUE,
-  );
-
-  $form['lti_id'] = array(
-    '#type' => 'value',
-    '#value' => (isset($lti) ? $lti->sid : -1),
-  );
-
-  $form['submit'] = array(
-    '#type' => 'submit',
-    '#value' => 'Submit',
-  );
-
-  return $form;
-}
-
-/**
- * Submittion settings for LTI form.
- */
-function lti_consumer_admin_form_submit($form_id, $form_state) {
-  $values = $form_state['values'];
-  $lti_id = $values['lti_id'];
-  if ($lti_id > 0) {
-    db_update('lti_consumer')
-    ->fields(array(
-      'name' => $values['name'],
-      'domain' => $values['domain'],
-      'consuemr_key' => $values['consumer_key'],
-      'shared_secret' => $values['shared_secret'],
-      'updated' => REQUEST_TIME,
-      ))
-    ->condition('sid', $lti_id, '=')
-    ->execute();
-  }
-
-  else {
-    db_insert('lti_consumer')
-    ->fields(array(
-      'name' => $values['name'],
-      'domain' => $values['domain'],
-      'consuemr_key' => $values['consumer_key'],
-      'shared_secret' => $values['shared_secret'],
-      'created' => REQUEST_TIME,
-      'updated' => REQUEST_TIME,
-      ))
-    ->execute();
-  }
-}
-
-/**
  * Call and display selected LTI content.
+ *
+ * CHANGE DATATABLE NAME IN db_query TO CUSTOMIZE CALL OF LTI
  */
-function lti_consumer_page($lti_id, $database_table = 'webform_views_add_lti_content_9') {
+function lti_consumer_page($lti_id) {
   global $user;
 
   module_load_include('php', 'oauth_common', 'lib/OAuth');
-
-  // Allow user to call another LTI table or use consumer table.
-  $database_table = ($database_table) ? $database_table : 'lti_consumer';
-  $lti = db_query('SELECT * FROM {' . $database_table . '} WHERE sid = :sid', array(':sid' => $lti_id))->fetchObject();
-
+  
+  $result = db_query('SELECT * FROM {webform_views_add_lti_content_9} WHERE sid = :sid', array(':sid' => $lti_id));
+  $lti = $result->fetchObject();
+  
   $params = array(
     "resource_link_id" => $lti->sid,
     "roles" => "Instructor",
@@ -197,7 +63,7 @@ function lti_consumer_page($lti_id, $database_table = 'webform_views_add_lti_con
   $oauth->sign_request($signature, $consumer, '');
   $post = curl_init($oauth);
 
-  // Remove comment below to view LTI Header.
+  // Remove comment below to view LTI Header
   // curl_setopt($post, CURLOPT_HEADER, 1);
   curl_setopt($post, CURLOPT_POST, 1);
   curl_setopt($post, CURLOPT_POSTFIELDS, $params);
