@@ -1,13 +1,13 @@
 function listAllContent() {
 	(function($) {
-		$('#reportsData').html('<table width="100%" cellspacing="3" align="left" cellpadding="0" id="data-entry"></table>');
+		$('#reportsData').html('<table width="100%" cellspacing="3" cellpadding="0" id="data-entry"></table>');
 		$('#data-entry').dataTable({
 			"bProcessing": true,
 			"bScrollInfinite": true,
-			"sScrollX": "100%", 
-			"bScrollCollapse": true,
-			"bAutoWidth": true,
-			"sScrollY": "100%",
+			"sScrollX": "160%",
+			"bScrollCollapse": true ,
+			"bAutoWidth": false,
+			"sScrollY": "100%",		
 			"iDisplayLength": -1,
 			"sDom": '<"top">rt<"bottom">',
 			"aaSorting": [],
@@ -31,7 +31,7 @@ function listExpirationDates() {
 		$('#reportsData').html('<table width="100%" cellspacing="0" cellpadding="0" id="data-entry"></table>');
 		$('#data-entry').dataTable({
 			"bProcessing": true,
-			"bScrollInfinite": true,						"bAutoWidth": true,
+			"bScrollInfinite": true,
 			"sScrollY": "100%",
 			"sDom": '<"top">rt<"bottom">',
 			"aaSorting": [[1,"asc"]],
@@ -39,7 +39,9 @@ function listExpirationDates() {
 			"aoColumns": [
 				{ "sTitle": "Name", "sWidth": "60%" },
 				{ "sTitle": "Expiration date" }
-			]
+			],
+			"bAutoWidth": true
+
 		});
 	})(jQuery);
 }
