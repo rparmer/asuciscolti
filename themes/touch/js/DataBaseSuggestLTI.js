@@ -1,4 +1,4 @@
-  
+ function view_lti(url){ 	href = url;}function accept_lti(sid){	location.href = 		'?q=lti_content';}function decline_lti(sid){	location.href =		'?q=node/14/submission/' + sid + '/delete&destination=suggested_lti_data';	}
 	
     (function ($) {
         Drupal.behaviors.touch = {
@@ -9,10 +9,10 @@
                     "sDom": '<"inline"l><"floatright"f>rt<ip>',
 					"sAjaxSource": "/drupal/API/DatabaseSuggestLTIPull.php",
                     "aoColumns": [
-						{ "sTitle": "LTI Name ", "sWidth": "60px" },
-						{ "sTitle": "URL", "sWidth": "60px" },
-						{ "sTitle": "Description", "sWidth": "60px" },
-                        { "sWidth": "18px" }
+						{ "sTitle": "LTI Name ", "sWidth": "25%" },
+						{ "sTitle": "URL", "sWidth": "25%" },
+						{ "sTitle": "Description", "sWidth": "25%" },
+                        { "sWidth": "25%" }
                     ]
                 });
             }
