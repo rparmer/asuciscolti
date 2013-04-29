@@ -49,17 +49,17 @@
  		    <td><b>App Indicator</b><font color = red> *</font><br/>Indicate whether the application is free or Premium</td>				<td><?php print drupal_render($form['submitted']['app_indicator']); ?></td>
 		</tr>		<tr>					<td><b>Expiration Date</b><br/>State when LTI expires (optional)</td>						<td><?php print drupal_render($form['submitted']['expiration_date']); ?></td>					</tr>		
  		<tr>
- 		    <td valign="top"><b>Custom Fields</b><br/>Configure optional add-ons</td>
+ 		    <td valign="top"><b>Custom Fields</b><br/>Configure add-ons (optional)</td>
  		    <td><?php print drupal_render($form['submitted']['custom_fields']); ?></td>
  		</tr>
  		<tr>
- 		    <td valign="top"><b>Description</b></td>
+ 		    <td valign="top"><b>Description</b><br/>Describe purpose and functionality of LTI (optional)</td>
  		    <td><?php print drupal_render($form['submitted']['description']); ?></td>
  		</tr>
 		
 		<tr>
 		
- 		    <td><b>Display Image</b><br/>Upload a display picture</td>
+ 		    <td><b>Display Image</b><br/>Upload a display picture (optional)</td>
  		    <td><?php print drupal_render($form['submitted']['display_image']); ?></td>
 		</tr>
 

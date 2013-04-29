@@ -11,7 +11,7 @@
 			<td><b>URL</b><font color = red> *</font><br/>Address to Suggested LTI</td>
 			<td><?php print drupal_render($form['submitted']['url']); ?></td>			</tr>		<tr>
 			<td valign="top"><b>Desciption</b><font color = red> *</font><br/>
-			Tell us what the LTI does and why it would<br/> be beneficial to add to Marketplace</td>
+			Tell us what the LTI does and why it would<br/> be beneficial to be added into the Marketplace</td>
 			<td><?php print drupal_render($form['submitted']['description']); ?></td>
  		</tr>
  	</table>
