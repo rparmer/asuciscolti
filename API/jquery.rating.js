@@ -9,11 +9,10 @@
 
 /*# AVOID COLLISIONS #*/
 (function($){
-        Drupal.behaviors.touch = {
 /*# AVOID COLLISIONS #*/
 	
 	// IE6 Background Image Fix
-	if ((!$.support.opacity && !$.support.style)) try { document.execCommand("BackgroundImageCache", false, true)} catch(e) { };
+	if(!($.support.opacity) && !($.support.style)) try { document.execCommand("BackgroundImageCache", false, true)} catch(e) { };
 	// Thanks to http://www.visualjquery.com/rating/rating_redux.html
 	
 	// plugin initialization
@@ -252,7 +251,7 @@
 			this.rating('drain');
 			// Set control value
 			if(control.current){
-				control.current.data('rating.input').attr('checked','checked').prop('checked',true);
+				control.current.data('rating.input').attr('checked','checked').attr('checked',true);
 				control.current.prevAll().andSelf().filter('.rater-'+ control.serial).addClass('star-rating-on');
 			}
 			else
@@ -370,5 +369,5 @@
 	
 	
 /*# AVOID COLLISIONS #*/
-}})(jQuery);
+})(jQuery);
 /*# AVOID COLLISIONS #*/

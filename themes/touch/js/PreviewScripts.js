@@ -1,5 +1,3 @@
-
-
 function deleteReview(id){
 	(function ($) {
 	$.ajax({  
@@ -8,9 +6,9 @@ function deleteReview(id){
 			data: "id=" + id,  
 			success: function(data,status,jq) {
 				if(data != 'success'){
-					alert(data); 
+					alert(data); 					
 				}else{
-					alert('The Comment has been deleted.');
+					alert('This comment has been deleted.');
 					pullPastReviews();
 				}
 			}  
@@ -71,7 +69,7 @@ function reviewSubmit(){
 					$('input:text').val(function(){return ''});
 					$('input:radio').val(function(){return ''});
 					$('textarea').val(function(){return ''});
-					pullPastReviews();
+					//pullPastReviews();					location.reload();							
 				}
 			}  
 	});  
@@ -81,17 +79,15 @@ function reviewSubmit(){
 
 function pullPastReviews(){
 	(function ($) {
-	var username = "<?php echo $name; ?>";
-	  var admin = "<?php echo $isadmin; ?>";
           var sid = GetURLParameter('sid');
 		      $.ajax({  
             type: "POST",  
             url: "/drupal/themes/touch/js/ajax/buildReviewsTable.php",  
-            data: "sid=" + sid + "&username=" + username + "&isadmin=" + admin,  
+            data: "sid=" + sid + "&username=" + userName + "&isadmin=" + isAdmin,  
             success: function(data,status,jq) {
-              document.getElementById('pastReviews').innerHTML = data; 
+              document.getElementById('pastReviews').innerHTML = data; 			  
             }  
-          });  
+          });  		$('input[type=radio].star').rating();
 	})(jQuery);
 }
 

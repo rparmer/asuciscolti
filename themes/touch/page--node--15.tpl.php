@@ -1,13 +1,3 @@
-<?php
-  global $user;
-  $name = $user->name;
-  $isadmin = false;
-  foreach($user->roles as $role){
-	if($role == 'administrator'){
-		$isadmin = true;
-	}
-  }
-?>
 <script type="text/javascript" src="/drupal/themes/touch/js/PreviewScripts.js" ></script>
 <?php
 /**
@@ -77,7 +67,7 @@
 ?>
 <div align=right>
 <?php
-
+  global $user;
   if ($user->uid != 0){
     echo "Welcome $user->name. Click 
     <a href=\"http://asuciscolti.freeddns.com/user/logout\">here</a> to logout";
@@ -160,15 +150,14 @@
       						</td>
 	  				</tr>
 	  				<tr>
-      						<td>Name:</td>
-                            <td><input type="text" name="name" disabled="disabled" size="35" value="<?php echo $user->name ?>"/></td>
+                            <td><input type="text" name="name" size="35" value="<?php echo $user->name ?>" HIDDEN /></td>
 	  				</tr>
 	  				<tr>
-      						<td>Header:</td>
+      						<td>Title:</td>
 	    					<td><input type="text" name="header" size="35"/></td>
 	  				</tr>
 	  				<tr>
-      						<td>Comments:</td>
+      						<td>Comment:</td>
 	    					<td><textarea rows='5' cols='28' spellcheck='1' name='comment'></textarea></td>
 	  				</tr>
   				</table>

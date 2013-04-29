@@ -1,5 +1,5 @@
-<?php
-	$username="drup197";
+<?php
+	$username="drup197";	
 	$password="bandit20";
     $database="drup197";
 	$server="localhost";
@@ -13,17 +13,16 @@
     	if($row['name'] != "") $tableData .= '["' . $row['name'] . '",';
 			else $tableData .= '["No Name",';
     	if($row['description'] != "") $tableData .= '"' . $row['description'] . '",';
-    		else $tableData .= '"No description",';
-    		$tableData .= '"<button type=\"button\" onclick=edit(' . $row['sid'] . ')>Edit</button>';
-    	$tableData .= '<button type=\"button\" onclick=preview(' . $row['sid'] . ')>Preview</button>"]';		while($row = mysqli_fetch_array($result))
+    		else $tableData .= '"No description",';		$tableData .= '"<button type=\"button\" onclick=edit_lti(' . $row['sid'] . ')>Edit</button>';
+    	$tableData .= '<button type=\"button\" onclick=preview_lti(' . $row['sid'] . ')>Preview</button>';			$tableData .= '<button type=\"button\" onclick=delete_lti(' . $row['sid'] . ')>Delete</button>"]';				while($row = mysqli_fetch_array($result))
     	{
 	 	    $tableData .= ',';
     	    if($row['name'] != "") $tableData .= '["' . $row['name'] . '",';
     	    	else $tableData .= '["No Name",';
   	    if($row['description'] != "") $tableData .= '"' . $row['description'] . '",';
 	 	    	else $tableData .= '"No description",';
-        	    	    $tableData .= '"<button type=\"button\" onclick='edit( $row['sid'] )'>Edit</button>';
-        	    $tableData .= '<button type=\"button\" onclick=preview(' . $row['sid'] . ')>Preview</button>"]';
+        	    	    $tableData .= '"<button type=\"button\" onclick=edit_lti(' . $row['sid'] . ')>Edit</button>';
+        	    $tableData .= '<button type=\"button\" onclick=preview_lti(' . $row['sid'] . ')>Preview</button>';						$tableData .= '<button type=\"button\" onclick=delete_lti(' . $row['sid'] . ')>Delete</button>"]';
     	}
     		$tableData .= ']}';
     	echo $tableData;
